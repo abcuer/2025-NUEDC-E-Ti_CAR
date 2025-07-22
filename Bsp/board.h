@@ -16,10 +16,10 @@
 
 void board_init(void);
 
-void delay_us(unsigned long __us);
-void delay_ms(unsigned long ms);
-void delay_1us(unsigned long __us);
-void delay_1ms(unsigned long ms);
+void delay_us(uint32_t __us);
+void delay_ms(uint32_t __us);
+void delay_1us(uint32_t __us);
+void delay_1ms(uint32_t __us);
 
 void uart0_send_char(char ch);
 void uart0_send_string(char* str);

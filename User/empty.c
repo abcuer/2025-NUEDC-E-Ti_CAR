@@ -31,114 +31,71 @@
  */
 #include "headfile.h"
 
-uint8_t Key1 = 0;
-uint8_t Key2 = 0;
 uint8_t Task = 0;
 uint8_t start_flag = 0;
 uint8_t first_flag = 0;
 float basespeed = 0;
-
-uint8_t update_flag = 0;
-uint8_t dist_finished = 0;
-float speed_tar = 33.0;
-uint32_t Value = 0;
-int angle_tar = -50;
+uint8_t time_10ms = 0;
 
 int main(void)
 {
-	board_init(); // 延迟 串口
-	encoder_Init();
-	timerA_init();
-	timerG_init();
-//	Ultrasonic_Init();
-	
-	pid_Init(&angle, POSITION_PID, -0.16, -0, -0);
-	pid_Init(&trackLine, POSITION_PID, 0.45, 0, 0);
-	pid_Init(&dist, POSITION_PID, 0.2, 0, 0);
-	pid_Init(&encoder_to_ang, POSITION_PID, 1.5, 0, 0);
+	System_Init();
+	//SPI 模式接线
+// PA10------------------------MISO
+// PB17------------------------MOSI
+// PA11------------------------SCLK
+// PA29------------------------CS
 	
 	while(1) 
 	{   
-//		encoder_to_angle(150);
-//		Key1 = Key_GetNum1();
-//		Key2 = Key_GetNum2();
-//		if(Key1) angle_tar -= 45;
-//		if(Key2) angle_tar += 45;
-//		Value = (int)Hcsr04GetLength();
-//		if(update_flag) 
-//        {
-//            update_flag = 0;
-			//printf("Distance = %dCM\r\n", Value);
-//			speed2_pid_control(speed_tar);  
-			//distloop_pid_control(20, 0);
-			//printf("%.2f, %.2f, %d\n", speedA, speedB, Value);
-			//angleloop_pid_control(angle_tar, 0);
-			//trackloop_pid_control(0, 300);
-//        }
-		
-		
-
-		Key1 = Key_GetNum1();
-		Key2 = Key_GetNum2();
-		
-		// 切换任务
-		if(start_flag == 0)
+		if(time_10ms)
 		{
-			if (Key1 == 1) 
-			{
-				LED_Green_ON();
-				Task++;
-			}
-			if (Task > 4) Task = 0; 
+			test();
+			time_10ms = 0;
 		}
-		if(Key2 == 1)
-		{
-			LED_Blue_ON();
-			start_flag = 1;
-		}
-    
-		// 执行任务
-		if(start_flag == 1)
-		{
-			if(first_flag == 1)
-			{
-				switch(Task)
-				{
-					case 1: Task_1(); break;
-					case 2: Task_2(); break;
-					case 3: Task_3(); break;
-					case 4: Task_4(); break;
-				}
-			}
-		}
-		
+		Task_select();
 	}
 }
 
+
 // pid控制
-void TIMER_0_INST_IRQHandler(void)
+void TIMER_0_INST_IRQHandler(void)   //PID运算
 {
 	if(DL_TimerA_getPendingInterrupt(TIMER_0_INST))
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
-			Gray_Init();
-			update_flag = 1;
-			
+			PID_select();
+			Key_Tick();
+			time_10ms = 1;
 		}
 	}
 }
 
-void TIMER_1_INST_IRQHandler(void)
+void TIMER_1_INST_IRQHandler(void)	// 声光检测
 {
 	if(DL_TimerG_getPendingInterrupt(TIMER_1_INST))
 	{
 		if(DL_TIMER_IIDX_LOAD)
 		{	
-			// 初始化
-			if (start_flag == 1 && first_flag == 0)   initialize();
+			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
 		}
+	}
+}
+
+
+void TIMER_3_INST_IRQHandler(void)	// ICM42586需要
+{
+	switch(DL_TimerG_getPendingInterrupt(TIMER_3_INST))
+	{
+		case DL_TIMER_IIDX_ZERO:
+			nowtime++;
+			DL_TimerG_clearInterruptStatus(TIMER_3_INST, DL_TIMER_IIDX_ZERO);
+		break;
+		default:
+			
+		break;
 	}
 }
 

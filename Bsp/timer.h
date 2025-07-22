@@ -4,7 +4,8 @@
 #include "ti_msp_dl_config.h"
 #include "board.h"
 
-void timerA_init(void);
-void timerG_init(void);
+void timer0_init(void);
+void timer1_init(void);
+void timer3_init(void);
 
 #endif

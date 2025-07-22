@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\Hardware;..\..\2024H_TI_CAR;..\User;..\Code</IncludePath>
+              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\Hardware;..\..\TI_CAR;..\User;..\Code;..\Bsp;..\App;..\Control;..\Hardware\ICM45686;..\Hardware\ICM45686\IMU</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -382,6 +382,41 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>Bsp</GroupName>
+          <Files>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\board.c</FilePath>
+            </File>
+            <File>
+              <FileName>board.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\board.h</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\bsp_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\bsp_spi.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
@@ -405,16 +440,6 @@
               <FilePath>..\Hardware\led.h</FilePath>
             </File>
             <File>
-              <FileName>board.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\board.c</FilePath>
-            </File>
-            <File>
-              <FileName>board.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\board.h</FilePath>
-            </File>
-            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\buzzer.c</FilePath>
@@ -423,6 +448,21 @@
               <FileName>buzzer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Hardware\buzzer.h</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\oled.h</FilePath>
+            </File>
+            <File>
+              <FileName>oledfont.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\oledfont.h</FilePath>
             </File>
             <File>
               <FileName>motor.c</FileName>
@@ -445,16 +485,6 @@
               <FilePath>..\Hardware\encoder.h</FilePath>
             </File>
             <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\timer.h</FilePath>
-            </File>
-            <File>
               <FileName>gray.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\gray.c</FilePath>
@@ -475,6 +505,16 @@
               <FilePath>..\Hardware\jy901s.h</FilePath>
             </File>
             <File>
+              <FileName>IMU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\ICM45686\IMU\IMU.c</FilePath>
+            </File>
+            <File>
+              <FileName>IMU.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\IMU\IMU.h</FilePath>
+            </File>
+            <File>
               <FileName>sr04.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\sr04.c</FilePath>
@@ -484,50 +524,105 @@
               <FileType>5</FileType>
               <FilePath>..\Hardware\sr04.h</FilePath>
             </File>
+            <File>
+              <FileName>hc05.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\hc05.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc05.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\hc05.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Code</GroupName>
+          <GroupName>Control</GroupName>
           <Files>
             <File>
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Code\pid.c</FilePath>
+              <FilePath>..\Control\pid.c</FilePath>
             </File>
             <File>
               <FileName>pid.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Code\pid.h</FilePath>
+              <FilePath>..\Control\pid.h</FilePath>
             </File>
             <File>
-              <FileName>position.c</FileName>
+              <FileName>speed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Code\position.c</FilePath>
+              <FilePath>..\Control\speed.c</FilePath>
             </File>
             <File>
-              <FileName>position.h</FileName>
+              <FileName>speed.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Code\position.h</FilePath>
+              <FilePath>..\Control\speed.h</FilePath>
             </File>
             <File>
-              <FileName>task.c</FileName>
+              <FileName>angle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Code\task.c</FilePath>
+              <FilePath>..\Control\angle.c</FilePath>
             </File>
             <File>
-              <FileName>task.h</FileName>
+              <FileName>angle.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Code\task.h</FilePath>
+              <FilePath>..\Control\angle.h</FilePath>
             </File>
             <File>
               <FileName>distance.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Code\distance.c</FilePath>
+              <FilePath>..\Control\distance.c</FilePath>
             </File>
             <File>
               <FileName>distance.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Code\distance.h</FilePath>
+              <FilePath>..\Control\distance.h</FilePath>
+            </File>
+            <File>
+              <FileName>gray_track.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Control\gray_track.c</FilePath>
+            </File>
+            <File>
+              <FileName>gray_track.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Control\gray_track.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>App</GroupName>
+          <Files>
+            <File>
+              <FileName>app_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\app_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\app_task.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\app_utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_utils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\app_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\test.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -683,6 +778,56 @@
               <FileName>dl_adc12.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ti\dl_adc12.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ICM45686</GroupName>
+          <Files>
+            <File>
+              <FileName>basic_read_reg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\ICM45686\basic_read_reg.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu.h</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_defs.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_defs.h</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_driver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_driver.h</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_regmap_le.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_regmap_le.h</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_transport.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_transport.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_transport.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_transport.h</FilePath>
+            </File>
+            <File>
+              <FileName>inv_imu_version.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\ICM45686\inv_imu_version.h</FilePath>
             </File>
           </Files>
         </Group>
