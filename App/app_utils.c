@@ -13,13 +13,13 @@ void System_Init(void)
 	encoder_Init();
 	timer0_init();
 	timer1_init();
-	Ultrasonic_Init();
-	OLED_Init();
-    OLED_Clear();
-	delay_ms(100);//等待部署
-	IMU_init();
-	timer3_init();
-	delay_ms(20);
+//	Ultrasonic_Init();
+//	OLED_Init();
+//    OLED_Clear();
+//	delay_ms(100);//等待部署
+//	IMU_init();
+//	timer3_init();
+//	delay_ms(20);
 }
 
 void Task_select(void)

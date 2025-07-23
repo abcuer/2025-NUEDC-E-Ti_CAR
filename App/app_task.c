@@ -189,9 +189,7 @@ void Task_4(void)
 			
 		case 2:  
 			SoundLight();
-	
 			basespeed = 390;
-			pid_Init(&trackLine, POSITION_PID, 4.8, 0, 0);
 			while(Line_flag)
 			{
 				Get_Light_TTL();
@@ -229,7 +227,6 @@ void Task_4(void)
 		case 4:  
 			SoundLight();
 			basespeed = 390;
-			pid_Init(&trackLine, POSITION_PID, 4.7, 0, 0);
 			while(Line_flag)
 			{
 

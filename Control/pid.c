@@ -62,18 +62,25 @@ void PID_select(void)
 		case SPEED_PID:
 			speed2_pid_control(speed_tar);
 			break;
-		case ANGLE_PID:
+		case ANGLE1_PID:
+			if(Yaw_update)
+			{
+				angle1_pid_control(angle_tar);
+				Yaw_update = 0;
+			}
+			break;
+		case ANGLE2_PID:
 			if(Yaw_update)
 			{
 				angleloop_pid_control(angle_tar, basespeed);
 				Yaw_update = 0;
 			}
 			break;
-		case TRACK_PID:
-			trackloop_pid_control(0, basespeed);
+		case TRACK1_PID:
+			track1_pid_control(0, basespeed);
 			break;
-		case TRACK_MIDDLELINE:
-			trackloop2_pid_control(0, basespeed);
+		case TRACK2_PID:
+			trackloop_pid_control(0, basespeed);
 			break;
 		default:
 			break;

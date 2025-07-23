@@ -1,20 +1,59 @@
 #include "headfile.h"
 
+/************************ 速度环调参 ***************************/
+void test(void)
+{
+	pid_flag = SPEED_PID;
+	speed_tar = 50;     // 比赛用的速度不需要太快
+}
+
+/************************ 单级角度环调参 ***************************/
+//void test(void)
+//{
+//	pid_flag = ANGLE1_PID;
+//	angle_tar = 50;   
+//	basespeed = 300;
+//}
+
+/************************ 串级角度环调参 ***************************/
+//void test(void)
+//{
+//	pid_flag = ANGLE2_PID;
+//	angle_tar = 50;   
+//	basespeed = 50;
+//}
+
+/************************ 单级寻迹环调参 ***************************/
+//void test(void)
+//{
+//	pid_flag = TRACK1_PID;
+//   
+//	basespeed = 300;
+//}
+
+/************************ 串级寻迹环调参 ***************************/
+//void test(void)
+//{
+//	pid_flag = TRACK2_PID;
+//   
+//	basespeed = 50;
+//}
+
 
 
 /************************ ICM45686 SPI读取Yaw 超声波测距 ***************************/
-void test(void)
-{
-	float ypr[3];          // 上传yaw pitch roll的值
-	IMU_getYawPitchRoll(ypr);
-	uint32_t dist = (int) Hcsr04GetLength();
-	OLED_Refresh();        // 将数据刷新到屏幕上
-    OLED_ShowString(0, 0, (u8 *)"Yaw:", 12, 1);  // 字符串显示
-    OLED_ShowFloat(36, 0, ypr[0], 3, 12, 1);        // 显示数值（最大3位整数）
-	OLED_ShowString(0, 36, (u8 *)"dist:", 12, 1);  // 字符串显示
-    OLED_ShowFloat(36, 36, dist, 3, 12, 1);        // 显示数值（最大3位整数）
-	delay_ms(10);
-}
+//void test(void)
+//{
+//	float ypr[3];          // 上传yaw pitch roll的值
+//	IMU_getYawPitchRoll(ypr);
+//	uint32_t dist = (int) Hcsr04GetLength();
+//	OLED_Refresh();        // 将数据刷新到屏幕上
+//    OLED_ShowString(0, 0, (u8 *)"Yaw:", 12, 1);  // 字符串显示
+//    OLED_ShowFloat(36, 0, ypr[0], 3, 12, 1);        // 显示数值（最大3位整数）
+//	OLED_ShowString(0, 36, (u8 *)"dist:", 12, 1);  // 字符串显示
+//    OLED_ShowFloat(36, 36, dist, 3, 12, 1);        // 显示数值（最大3位整数）
+//	delay_ms(10);
+//}
 
 /************************ ICM45686 SPI读取Yaw ***************************/
 //void test(void)

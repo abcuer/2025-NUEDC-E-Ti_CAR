@@ -37,9 +37,10 @@
 #include "test.h"
 
 #define SPEED_PID 	1
-#define ANGLE_PID 	2
-#define TRACK_PID 	3
-#define TRACK_MIDDLELINE 	4
+#define ANGLE1_PID 	2
+#define ANGLE2_PID 	3
+#define TRACK1_PID 	4
+#define TRACK2_PID 	5
 
 extern uint8_t motor_left_dir;
 extern uint8_t motor_right_dir;

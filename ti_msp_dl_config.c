@@ -373,7 +373,7 @@ static const DL_TimerA_ClockConfig gTIMER_0ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_0_INST_LOAD_VALUE = (8ms * 40000 Hz) - 1
+ * TIMER_0_INST_LOAD_VALUE = (10ms * 40000 Hz) - 1
  */
 static const DL_TimerA_TimerConfig gTIMER_0TimerConfig = {
     .period     = TIMER_0_INST_LOAD_VALUE,
@@ -389,7 +389,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_0_init(void) {
     DL_TimerA_initTimerMode(TIMER_0_INST,
         (DL_TimerA_TimerConfig *) &gTIMER_0TimerConfig);
     DL_TimerA_enableInterrupt(TIMER_0_INST , DL_TIMERA_INTERRUPT_ZERO_EVENT);
-	NVIC_SetPriority(TIMER_0_INST_INT_IRQN, 1);
+	NVIC_SetPriority(TIMER_0_INST_INT_IRQN, 0);
     DL_TimerA_enableClock(TIMER_0_INST);
 
 
@@ -411,7 +411,7 @@ static const DL_TimerG_ClockConfig gTIMER_1ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_1_INST_LOAD_VALUE = (7ms * 40000 Hz) - 1
+ * TIMER_1_INST_LOAD_VALUE = (10ms * 40000 Hz) - 1
  */
 static const DL_TimerG_TimerConfig gTIMER_1TimerConfig = {
     .period     = TIMER_1_INST_LOAD_VALUE,
@@ -503,6 +503,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_3_init(void) {
     DL_TimerG_initTimerMode(TIMER_3_INST,
         (DL_TimerG_TimerConfig *) &gTIMER_3TimerConfig);
     DL_TimerG_enableInterrupt(TIMER_3_INST , DL_TIMERG_INTERRUPT_ZERO_EVENT);
+	NVIC_SetPriority(TIMER_3_INST_INT_IRQN, 2);
     DL_TimerG_enableClock(TIMER_3_INST);
 
 

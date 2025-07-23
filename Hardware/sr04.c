@@ -83,7 +83,7 @@ void TIMER_2_INST_IRQHandler(void)
     // 获取当前中断向量编号
    if(DL_TimerA_getPendingInterrupt(TIMER_2_INST))
 	{
-		if(DL_TIMER_IIDX_ZERO) 
+		if(DL_TIMER_IIDX_LOAD) 
 		{	
 			msHcCount++;
 		}

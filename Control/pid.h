@@ -21,12 +21,13 @@ typedef struct
 
 }pid_t;
 
-
-extern pid_t trackLine;
-extern pid_t trackLine2;
-extern pid_t angle;
-extern pid_t dist;
-extern pid_t encoder_to_ang;
+extern pid_t angle1;        /** 单级角度环 **/
+extern pid_t angle2;		/** 串级角度环 **/
+extern pid_t trackLine1;	/** 单级寻迹环 **/
+extern pid_t trackLine2;	/** 串级寻迹环 **/
+extern pid_t dist1;			/** 单级位移环 **/
+extern pid_t dist2;			/** 串级位移环 **/
+extern pid_t encoder_to_ang;	/** 编码器数值角度环 **/
 
 void pid_Init(pid_t *pid, uint32_t mode, float p, float i, float d);
 void pid_clear(pid_t *pid);

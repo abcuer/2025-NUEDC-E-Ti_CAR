@@ -79,8 +79,8 @@ void process_cmd(uint8_t cmd, uint8_t *data, uint8_t len)
             break;
 
         case 0x03:  // 设置速度，data[0]为速度值
-            speed_tar = data[0];
-			pid_flag = SPEED_PID;
+//            speed_tar = data[0];
+//			pid_flag = SPEED_PID;
             break;
 
         // 其他命令处理...

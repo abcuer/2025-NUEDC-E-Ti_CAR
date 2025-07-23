@@ -39,12 +39,24 @@ uint8_t time_10ms = 0;
 
 int main(void)
 {
-	System_Init();
-	//SPI 模式接线
-// PA10------------------------MISO
-// PB17------------------------MOSI
-// PA11------------------------SCLK
-// PA29------------------------CS
+	board_init(); // 延迟 串口
+	jy901s_Init();
+	HC05_Init();
+	encoder_Init();
+	timer0_init();
+	timer1_init();
+//	Ultrasonic_Init();
+//	OLED_Init();
+//    OLED_Clear();
+//	delay_ms(100);//等待部署
+//	IMU_init();
+//	timer3_init();
+//	delay_ms(20);
+	
+	pid_Init(&angle1, POSITION_PID, 0, 0, 0);  // 单级角度环
+	pid_Init(&angle2, POSITION_PID, 0, 0, 0);  // 串级角度环
+	pid_Init(&trackLine1, POSITION_PID, 0, 0, 0);  // 单级角度环
+	pid_Init(&trackLine2, POSITION_PID, 0, 0, 0);  // 串级角度环
 	
 	while(1) 
 	{   
@@ -59,25 +71,26 @@ int main(void)
 
 
 // pid控制
-void TIMER_0_INST_IRQHandler(void)   //PID运算
+void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 {
 	if(DL_TimerA_getPendingInterrupt(TIMER_0_INST))
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
+			speed_cal(0.2); 
 			PID_select();
-			Key_Tick();
 			time_10ms = 1;
 		}
 	}
 }
 
-void TIMER_1_INST_IRQHandler(void)	// 声光检测
+void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 {
 	if(DL_TimerG_getPendingInterrupt(TIMER_1_INST))
 	{
 		if(DL_TIMER_IIDX_LOAD)
 		{	
+			Key_Tick();
 			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
 		}
@@ -85,7 +98,7 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测
 }
 
 
-void TIMER_3_INST_IRQHandler(void)	// ICM42586需要
+void TIMER_3_INST_IRQHandler(void)	// ICM42586需要  100us
 {
 	switch(DL_TimerG_getPendingInterrupt(TIMER_3_INST))
 	{

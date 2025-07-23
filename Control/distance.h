@@ -12,13 +12,17 @@
 															  //                 ≈ 0.2797 毫米/脉冲		
 
 
-void get_distance1(void);
-void clear_distance1(void);
-float get_distance2(void); 
+void get_distance1(void);      // 直接获取一段距离
+void clear_distance1(void);	   // 清除获取的距离
+float get_distance2(void); 	   // 周期性获取的距离
 
-void dist2_pid_control(float dist_tar_cm);
-float dist_pid_control(float dist_tar_cm);
+/** 单级位移环 **/
+void dist1_pid_control(float dist_tar_cm);    
+/** 串级位移环 **/
+float dist2_pid_control(float dist_tar_cm);
 void distloop_pid_control(float dist_tar, int base);
+
+/** 利用编码器数值进行转向 **/
 void encoder_to_angle(float angle_tar);
 
 #endif

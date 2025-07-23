@@ -190,13 +190,12 @@ GPIO10.associatedPins[1].assignedPin  = "28";
 GPIO10.associatedPins[1].initialValue = "SET";
 GPIO10.associatedPins[1].direction    = "INPUT";
 
-GPIO11.$name                          = "KEY3";
-GPIO11.port                           = "PORTB";
-GPIO11.associatedPins[0].$name        = "KEY_3";
-GPIO11.associatedPins[0].direction    = "INPUT";
-GPIO11.associatedPins[0].assignedPort = "PORTB";
-GPIO11.associatedPins[0].assignedPin  = "9";
-GPIO11.associatedPins[0].pin.$assign  = "PB9";
+GPIO11.$name                         = "KEY3";
+GPIO11.port                          = "PORTB";
+GPIO11.associatedPins[0].$name       = "KEY_3";
+GPIO11.associatedPins[0].direction   = "INPUT";
+GPIO11.associatedPins[0].assignedPin = "9";
+GPIO11.associatedPins[0].pin.$assign = "PB9";
 
 GPIO12.$name                          = "OLED";
 GPIO12.port                           = "PORTA";
@@ -245,23 +244,23 @@ SPI1.peripheral.$assign                 = "SPI0";
 SPI1.peripheral.sclkPin.$assign         = "PA11";
 SPI1.peripheral.mosiPin.$assign         = "PB17";
 SPI1.peripheral.misoPin.$assign         = "PA10";
-SPI1.sclkPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric6";
 SPI1.sclkPinConfig.direction            = scripting.forceWrite("OUTPUT");
 SPI1.sclkPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 SPI1.sclkPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-SPI1.mosiPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric7";
+SPI1.sclkPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric6";
 SPI1.mosiPinConfig.direction            = scripting.forceWrite("OUTPUT");
 SPI1.mosiPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 SPI1.mosiPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 SPI1.mosiPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-SPI1.misoPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric8";
+SPI1.mosiPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric7";
 SPI1.misoPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 SPI1.misoPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-SPI1.cs0PinConfig.$name                 = "ti_driverlib_gpio_GPIOPinGeneric9";
+SPI1.misoPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric8";
 SPI1.cs0PinConfig.direction             = scripting.forceWrite("OUTPUT");
 SPI1.cs0PinConfig.hideOutputInversion   = scripting.forceWrite(false);
 SPI1.cs0PinConfig.onlyInternalResistor  = scripting.forceWrite(false);
 SPI1.cs0PinConfig.passedPeripheralType  = scripting.forceWrite("Digital");
+SPI1.cs0PinConfig.$name                 = "ti_driverlib_gpio_GPIOPinGeneric9";
 
 SYSCTL.forceDefaultClkConfig = true;
 SYSCTL.clockTreeEn           = true;
@@ -277,8 +276,8 @@ TIMER1.timerClkPrescale   = 100;
 TIMER1.timerMode          = "PERIODIC";
 TIMER1.interrupts         = ["ZERO"];
 TIMER1.timerStartTimer    = true;
-TIMER1.timerPeriod        = "8ms";
-TIMER1.interruptPriority  = "1";
+TIMER1.timerPeriod        = "10ms";
+TIMER1.interruptPriority  = "0";
 TIMER1.peripheral.$assign = "TIMA0";
 
 TIMER2.$name              = "TIMER_1";
@@ -288,7 +287,7 @@ TIMER2.timerClkDiv        = 8;
 TIMER2.timerClkPrescale   = 100;
 TIMER2.interrupts         = ["LOAD"];
 TIMER2.interruptPriority  = "1";
-TIMER2.timerPeriod        = "7ms";
+TIMER2.timerPeriod        = "10ms";
 TIMER2.peripheral.$assign = "TIMG0";
 
 TIMER3.$name              = "TIMER_2";
@@ -297,8 +296,8 @@ TIMER3.timerClkPrescale   = 10;
 TIMER3.timerMode          = "PERIODIC_UP";
 TIMER3.timerStartTimer    = true;
 TIMER3.timerPeriod        = "1ms";
-TIMER3.interrupts         = ["LOAD"];
 TIMER3.interruptPriority  = "2";
+TIMER3.interrupts         = ["LOAD"];
 TIMER3.peripheral.$assign = "TIMA1";
 
 TIMER4.$name              = "TIMER_3";
@@ -306,6 +305,7 @@ TIMER4.timerMode          = "PERIODIC";
 TIMER4.timerPeriod        = "100us";
 TIMER4.timerStartTimer    = true;
 TIMER4.interrupts         = ["ZERO"];
+TIMER4.interruptPriority  = "2";
 TIMER4.peripheral.$assign = "TIMG7";
 
 UART1.$name                            = "UART_2";
@@ -330,15 +330,15 @@ UART2.enabledInterrupts                = ["RX"];
 UART2.peripheral.$assign               = "UART0";
 UART2.peripheral.rxPin.$assign         = "PA1";
 UART2.peripheral.txPin.$assign         = "PA0";
-UART2.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric4";
 UART2.txPinConfig.direction            = scripting.forceWrite("OUTPUT");
 UART2.txPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART2.txPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART2.txPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
-UART2.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric5";
+UART2.txPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric4";
 UART2.rxPinConfig.hideOutputInversion  = scripting.forceWrite(false);
 UART2.rxPinConfig.onlyInternalResistor = scripting.forceWrite(false);
 UART2.rxPinConfig.passedPeripheralType = scripting.forceWrite("Digital");
+UART2.rxPinConfig.$name                = "ti_driverlib_gpio_GPIOPinGeneric5";
 
 /**
  * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
