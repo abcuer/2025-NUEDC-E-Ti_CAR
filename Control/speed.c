@@ -2,8 +2,10 @@
 
 #define PWM_Limit 1220
 
-float VelcityA_Ki = 7, VelcityA_Kp = 0.0;
+float VelcityA_Ki = 7.7, VelcityA_Kp = 0.0;
 float VelcityB_Ki = 7.5, VelcityB_Kp = 0.0;
+
+
 
 float speedA = 0;
 float speedB = 0;
@@ -70,6 +72,7 @@ int Velocity_B(int TargetVelocity, int CurrentVelocity)
 /***  调参用的速度环  ***/
 void speed2_pid_control(int speed_tar)
 {
+	speed_cal(0.2); 
 	float PWMA = Velocity_A(speed_tar, speedA);
 	float PWMB = Velocity_B(speed_tar, speedB);
 	if(PWMA > 0) motor_left_dir = 1; 	else motor_left_dir = 0;
@@ -81,6 +84,7 @@ void speed2_pid_control(int speed_tar)
 /***  串级处理用的速度环  ***/
 void speed_pid_control(int speed_tar, int base)
 {
+	speed_cal(0.2); 
 	if (abs(speed_tar) < 5) speed_tar = 0;
 	float PWMA = base - Velocity_A(speed_tar, speedA);
 	float PWMB = base + Velocity_B(speed_tar, speedB);

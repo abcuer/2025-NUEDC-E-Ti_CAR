@@ -1,4 +1,8 @@
 #include "pid.h"
+int speed_tar = 0;
+int angle_tar = 0;
+uint8_t pid_flag = 0;
+uint8_t Yaw_update = 0;
 
 void pid_Init(pid_t *pid, uint32_t mode, float p, float i, float d)
 {
@@ -49,11 +53,6 @@ void pidout_limit(pid_t *pid, float duty)
 	if(pid->out >= duty)	pid->out = duty;
 	if(pid->out <= -duty) pid->out = -duty;
 }
-
-uint8_t pid_flag = 0;
-int speed_tar = 0;
-int angle_tar = 0;
-uint8_t Yaw_update = 0;
 
 void PID_select(void)
 {

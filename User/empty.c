@@ -41,7 +41,7 @@ int main(void)
 {
 	board_init(); // 延迟 串口
 	jy901s_Init();
-	HC05_Init();
+//	HC05_Init();
 	encoder_Init();
 	timer0_init();
 	timer1_init();
@@ -53,16 +53,16 @@ int main(void)
 //	timer3_init();
 //	delay_ms(20);
 	
-	pid_Init(&angle1, POSITION_PID, 0, 0, 0);  // 单级角度环
-	pid_Init(&angle2, POSITION_PID, 0, 0, 0);  // 串级角度环
-	pid_Init(&trackLine1, POSITION_PID, 0, 0, 0);  // 单级角度环
-	pid_Init(&trackLine2, POSITION_PID, 0, 0, 0);  // 串级角度环
-	
+	pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
+//	pid_Init(&angle2, POSITION_PID, 3, 0, 15);  // 串级角度环
+	pid_Init(&trackLine1, POSITION_PID, 0, 0, 0);  //单级循迹
+//	pid_Init(&trackLine2, POSITION_PID, 0, 0, 0);  
+	test();
 	while(1) 
 	{   
 		if(time_10ms)
 		{
-			test();
+			
 			time_10ms = 0;
 		}
 		Task_select();
@@ -77,7 +77,6 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
-			speed_cal(0.2); 
 			PID_select();
 			time_10ms = 1;
 		}

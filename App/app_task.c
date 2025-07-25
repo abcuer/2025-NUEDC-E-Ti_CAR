@@ -15,6 +15,9 @@ void Task_1(void)
 	{
 		case 0: 
 			SoundLight();
+		  pid_Init(&angle1, POSITION_PID, 0, 0, 0);  // 单级角度环
+		  pid_flag =  TRACK1_PID;
+		 if(trackLine1.now = )
 			//test();
 			workstep++;
 			break;
