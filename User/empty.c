@@ -57,12 +57,12 @@ int main(void)
 //	pid_Init(&angle2, POSITION_PID, 3, 0, 15);  // 串级角度环
 	pid_Init(&trackLine1, POSITION_PID, 0, 0, 0);  //单级循迹
 //	pid_Init(&trackLine2, POSITION_PID, 0, 0, 0);  
-	test();
+	
 	while(1) 
 	{   
 		if(time_10ms)
 		{
-			
+//			test();
 			time_10ms = 0;
 		}
 		Task_select();
@@ -90,8 +90,8 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 		if(DL_TIMER_IIDX_LOAD)
 		{	
 			Key_Tick();
-			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
+			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
 		}
 	}
 }

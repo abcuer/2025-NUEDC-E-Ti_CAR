@@ -9,7 +9,7 @@ int16_t ang = 0;
 
 void angle_correction(void)
 {
-	if(Task == 2)
+	if(Task == 1)
 	{
 		if( ang > 120) ang -= 180;
 		else if( ang < -120) ang += 180;

@@ -42,31 +42,39 @@
 #define TRACK1_PID 	4
 #define TRACK2_PID 	5
 
-extern uint8_t motor_left_dir;
-extern uint8_t motor_right_dir;
-extern int Get_Encoder_countA;
-extern int Get_Encoder_countB;
+/******** IMU *********/
+extern uint32_t nowtime;
+
+/** Speed **/
 extern float speedA;
 extern float speedB;
-extern float carL_dis;
-extern float carR_dis;
+extern uint8_t motor_left_dir;
+extern uint8_t motor_right_dir;
 
-extern float basespeed;
-extern uint8_t Task;
-extern uint8_t first_flag;
-extern uint8_t start_flag;
-extern int16_t Line_flag;
-extern float angle_initial;
-extern int16_t baisetime;
-extern uint8_t workstep;
-
+/******** pid ********/
 extern uint8_t pid_flag;
 extern int speed_tar;
 extern int angle_tar;
 
-//extern uint8_t hc05_data;
-//extern uint8_t hc05_flag;
+/******** angle ********/
+extern float angle_initial;
 
-extern uint32_t nowtime;
+/******** distance ********/
+extern int Get_Encoder_countA;
+extern int Get_Encoder_countB;
+extern float carL_dis;
+extern float carR_dis;
+
+/******** Task ********/
+extern uint8_t Task;
+extern float basespeed;
+extern uint8_t Line_flag;
+extern uint8_t first_flag;
+extern uint8_t start_flag;
+extern int16_t baisetime;
+extern uint8_t workstep;
+
+extern uint8_t line_flag;
+extern uint8_t stop_flag;
 
 #endif

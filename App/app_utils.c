@@ -31,13 +31,11 @@ void Task_select(void)
 	{
 		if (Key == 1) 
 		{
-			speed_tar+=10;
 			LED_Green_ON();
 			Task++;
 		}
 		if(Key == 2)
 		{
-			speed_tar-=10;
 			LED_Blue_ON();
 			start_flag = 1;
 		}
@@ -82,6 +80,69 @@ void capture_initial_yaw(void)
 		delay_ms(50);
 }
  
+void detect_OA_line(void)
+{
+    static int yaw_match_count = 0;
+    static int detected = 0;
+    static int cooldown = 0;
+
+    cooldown++;
+
+    // 判断是否在 -10° ~ 10° 范围内（激光笔对准OA线）
+    if (Yaw >= -10 && Yaw <= 10)
+    {
+        yaw_match_count++;
+    }
+    else
+    {
+        yaw_match_count = 0;
+        detected = 0;  // 允许下一次检测
+    }
+
+    // 若连续检测命中3次，且冷却时间够
+    if (yaw_match_count >= 3 && !detected && cooldown >= 100)
+    {
+        stop_flag++;
+        detected = 1;
+        cooldown = 0;
+    }
+
+    // 如果 stop_flag 达到 2，小车停车
+    if (stop_flag >= 2)
+    {
+        motor_stop();  // 替换为你的停车函数
+    }
+}
+
+
+void detect_line_flag(void)
+{
+    static int line_detect_count = 0;
+    static int debounce_time = 0;
+    static int detected = 0;
+
+    debounce_time++;
+
+    if (L3 && L2 && L1 && R1 && R2 && R3)
+    {
+        line_detect_count++;
+    }
+    else
+    {
+        line_detect_count = 0;
+        detected = 0; // 允许下一次检测
+    }
+
+    // 连续检测命中3次，且时间隔足够
+    if (line_detect_count >= 3 && !detected && debounce_time >= 100)
+    {
+        line_flag++;       // 增加标志线计数
+        detected = 1;      // 防止连续多次累加
+        debounce_time = 0;
+    }
+}
+
+
 void SoundLight(void)
 {
 	if(SoundLight_flag == 0)
@@ -114,18 +175,8 @@ extern uint8_t turn_flag;
 
 void params_clear(void)
 {
-	Task = 0; 
-	lap_count = 0;
-	carL_dis = 0;
-	carR_dis = 0;
-	Get_Encoder_countA = 0;
-	Get_Encoder_countB = 0;
-	baisetime = 0;
-	turn_time = 0;
-	turn_flag = 0;
-	first_flag = 0;
-	start_flag = 0;
-	Line_flag = 0;
-	basespeed = 0;
+	Task = 0;
+	stop_flag = 0;
+	line_flag = 0;
 	workstep = 0;
 }

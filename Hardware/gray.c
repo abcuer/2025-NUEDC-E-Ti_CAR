@@ -3,7 +3,7 @@
 #define LineFlagTime 3000
 
 int16_t baisetime = 0;
-int16_t Line_flag = 0;
+uint8_t Line_flag = 0;
 int16_t LineFlagCNT = 0;
 
 int8_t L4,L3,L2,L1,R1,R2,R3,R4;

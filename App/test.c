@@ -16,12 +16,12 @@
 //}
 
 /************************ 串级角度环调参 ***************************/
-void test(void)
-{
-	pid_flag = ANGLE2_PID;
-	angle_tar = 0;   
-	basespeed = 30;
-}
+//void test(void)
+//{
+//	pid_flag = ANGLE2_PID;
+//	angle_tar = 0;   
+//	basespeed = 30;
+//}
 
 /************************ 单级寻迹环调参 ***************************/
 //void test(void)
@@ -38,8 +38,6 @@ void test(void)
 //   
 //	basespeed = 50;
 //}
-
-
 
 /************************ ICM45686 SPI读取Yaw 超声波测距 ***************************/
 //void test(void)

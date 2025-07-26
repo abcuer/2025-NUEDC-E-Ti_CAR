@@ -8,31 +8,61 @@ uint8_t workstep = 0;
 int16_t turn_time = 0;
 uint8_t turn_flag = 0;
 uint8_t lap_count = 0;
+uint8_t line_flag = 0;
+uint8_t stop_flag = 0;
 
 void Task_1(void)
 {
 	switch(workstep)
 	{
 		case 0: 
-			SoundLight();
-		  pid_Init(&angle1, POSITION_PID, 0, 0, 0);  // 单级角度环
-		  pid_flag =  TRACK1_PID;
-		 if(trackLine1.now = )
-			//test();
+			pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
+			pid_Init(&trackLine1, POSITION_PID, 6, 0, 10);  // 单级角度环
+			line_flag = 0;
+			stop_flag = 0;
+			turn_time = 0;
+			basespeed = 300;	
 			workstep++;
 			break;
 		
-		case 1:  
-			
-			workstep++;
+		case 1: 
+			if(line_flag < 4) 
+			{
+				detect_line_flag();
+				pid_flag = TRACK1_PID;
+				trackLine1.target = 0;
+			}
+			else
+			{
+				SoundLight();
+				if(turn_time++ <= TURNTIME)
+				{
+					pid_flag =  ANGLE1_PID;
+					angle_tar = 40;
+				}
+				else
+				{
+					workstep++;
+				}
+			}
 			break;
 			
 		case 2:  
-			
-			params_clear();
+			if(stop_flag < 2)
+			{
+				detect_OA_line();  // 内含防误识别
+				pid_flag = TRACK1_PID;
+				trackLine1.target = 0;
+			}
+			else
+			{
+				motor_stop();
+				params_clear();
+			}
 			break;
 	}
 }
+
 
 void Task_2(void)
 {

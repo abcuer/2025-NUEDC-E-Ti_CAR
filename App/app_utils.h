@@ -8,4 +8,7 @@ void SoundLight(void);
 void UpdateSoundLight(void);
 void params_clear(void);
 
+void detect_line_flag(void);
+void detect_OA_line(void);
+
 #endif
