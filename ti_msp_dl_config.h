@@ -272,27 +272,24 @@ extern "C" {
 /* Port definition for Pin Group Gray_IOA */
 #define Gray_IOA_PORT                                                    (GPIOA)
 
-/* Defines for L4: GPIOA.16 with pinCMx 38 on package pin 9 */
-#define Gray_IOA_L4_PIN                                         (DL_GPIO_PIN_16)
-#define Gray_IOA_L4_IOMUX                                        (IOMUX_PINCM38)
-/* Defines for L3: GPIOA.12 with pinCMx 34 on package pin 5 */
-#define Gray_IOA_L3_PIN                                         (DL_GPIO_PIN_12)
-#define Gray_IOA_L3_IOMUX                                        (IOMUX_PINCM34)
-/* Defines for L2: GPIOA.13 with pinCMx 35 on package pin 6 */
-#define Gray_IOA_L2_PIN                                         (DL_GPIO_PIN_13)
-#define Gray_IOA_L2_IOMUX                                        (IOMUX_PINCM35)
-/* Defines for L1: GPIOA.15 with pinCMx 37 on package pin 8 */
-#define Gray_IOA_L1_PIN                                         (DL_GPIO_PIN_15)
-#define Gray_IOA_L1_IOMUX                                        (IOMUX_PINCM37)
+/* Defines for L3: GPIOA.16 with pinCMx 38 on package pin 9 */
+#define Gray_IOA_L3_PIN                                         (DL_GPIO_PIN_16)
+#define Gray_IOA_L3_IOMUX                                        (IOMUX_PINCM38)
+/* Defines for L2: GPIOA.12 with pinCMx 34 on package pin 5 */
+#define Gray_IOA_L2_PIN                                         (DL_GPIO_PIN_12)
+#define Gray_IOA_L2_IOMUX                                        (IOMUX_PINCM34)
+/* Defines for L1: GPIOA.13 with pinCMx 35 on package pin 6 */
+#define Gray_IOA_L1_PIN                                         (DL_GPIO_PIN_13)
+#define Gray_IOA_L1_IOMUX                                        (IOMUX_PINCM35)
+/* Defines for M: GPIOA.15 with pinCMx 37 on package pin 8 */
+#define Gray_IOA_M_PIN                                          (DL_GPIO_PIN_15)
+#define Gray_IOA_M_IOMUX                                         (IOMUX_PINCM37)
 /* Defines for R1: GPIOA.17 with pinCMx 39 on package pin 10 */
 #define Gray_IOA_R1_PIN                                         (DL_GPIO_PIN_17)
 #define Gray_IOA_R1_IOMUX                                        (IOMUX_PINCM39)
 /* Defines for R2: GPIOA.18 with pinCMx 40 on package pin 11 */
 #define Gray_IOA_R2_PIN                                         (DL_GPIO_PIN_18)
 #define Gray_IOA_R2_IOMUX                                        (IOMUX_PINCM40)
-/* Defines for R4: GPIOA.14 with pinCMx 36 on package pin 7 */
-#define Gray_IOA_R4_PIN                                         (DL_GPIO_PIN_14)
-#define Gray_IOA_R4_IOMUX                                        (IOMUX_PINCM36)
 
 
 

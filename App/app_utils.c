@@ -42,6 +42,8 @@ void Task_select(void)
 		}
 		if(Key == 3)  // 圈数判断
 		{
+//			LED_Blue_ON();
+//			LED_Green_ON();
 			target_lap++;
 		}
 		if (Task > 4) Task = 0; 
@@ -92,11 +94,11 @@ void detect_turn_angle_flag(void)
     debounce_time++;
     detect_timer++;
 
-    if (L4 && L3 && L2 && L1 )
+    if (L3 && L2 && L1 && M)
     {
         turn_angle_detect_count++;
     }
-    else if (!L4 && !L3 && !L2 && !L1)  // 完全离开，允许下次检测
+    else if (!M && !L3 && !L2 && !L1)  // 完全离开，允许下次检测
     {
         detected = 0;
     }
@@ -196,18 +198,13 @@ extern uint8_t turn_flag;
 
 void params_clear(void)
 {
-	Task = 0; 
-	lap_count = 0;
-	carL_dis = 0;
-	carR_dis = 0;
-	Get_Encoder_countA = 0;
-	Get_Encoder_countB = 0;
-	baisetime = 0;
-	turn_time = 0;
-	turn_flag = 0;
-	first_flag = 0;
-	start_flag = 0;
-	Line_flag = 0;
-	basespeed = 0;
+	Task = 0;
+	lap_flag = 0;
+    lap_count = 0;
+    turn_angle_flag = 0;
+    turn_time = 0;
+    pid_flag = 0;
+    basespeed = 0;
+	target_lap = 0;
 	workstep = 0;
 }

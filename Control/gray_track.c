@@ -4,16 +4,16 @@
 pid_t trackLine1;   // 单级寻迹环
 pid_t trackLine2;	// 串级寻迹环
 
-float left[4]  = {0.25, 0.5, 0.75, 1.0};  // L1 ~ L4
-float right[4] = {-0.25, -0.5, -0.75, -1.0}; // R1 ~ R4
+float left[3]  = {1, 2, 3};  // L1 ~ L4
+float right[3] = {-1, -2, -3}; // R1 ~ R4
 
 /***** 单级寻迹环 ****/
 void track1_pid_control(float targetValue, float basespeed)
 { 	
 	Gray_Read();
-	float sum = R1 + R2 + R3 + R4 + L1 + L2 + L3 + L4;
+	float sum = L3 + L2 + L1 + M + R1+ R2 + R3;
 	if (sum < 0.001f) sum = 1.0f; // 或者其他默认值，防止除零
-	float currentValue = (L4 * left[3] + L3 * left[2] + L2 * left[1] + L1 * left[0] + R1 * right[0] + R2 * right[1] + R3 * right[2] + R4 * right[3]) / sum;
+	float currentValue = (L3 * left[2] + L2 * left[1] + L1 * left[0] + M * 0.0f + R1 * right[0] + R2 * right[1] + R3 * right[2]) / sum;
 	trackLine1.now = currentValue;
 	trackLine1.target = targetValue;
 	pid_cal(&trackLine1);
@@ -26,9 +26,10 @@ void track1_pid_control(float targetValue, float basespeed)
 /***** 串级寻迹环 ****/
 int track2_pid_control(float targetValue)
 {
-	float sum = R1 + R2 + R3 + R4 + L1 + L2 + L3 + L4;
+	Gray_Read();
+	float sum = L3 + L2 + L1 + M + R1+ R2 + R3;
 	if (sum < 0.001f) sum = 1.0f; // 或者其他默认值，防止除零
-	float currentValue = (L4 * left[3] + L3 * left[2] + L2 * left[1] + L1 * left[0] + R1 * right[0] + R2 * right[1] + R3 * right[2] + R4 * right[3]) / sum;
+	float currentValue = (L3 * left[2] + L2 * left[1] + L1 * left[0] + M * 0.0f + R1 * right[0] + R2 * right[1] + R3 * right[2]) / sum;
 	trackLine2.now = currentValue;
 	trackLine2.target = targetValue;
 	pid_cal(&trackLine2);

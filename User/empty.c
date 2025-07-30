@@ -77,6 +77,7 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
+			speed_cal(0.2); 
 			PID_select();
 			time_10ms = 1;
 		}

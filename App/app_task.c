@@ -11,6 +11,28 @@ uint8_t turn_angle_flag = 0;
 uint8_t lap_flag = 0;
 uint8_t lap_count = 0;
 
+
+//void Task_1(void)
+//{
+//	switch(workstep)
+//	{
+//		case 0: 
+//			SoundLight();
+//			//test();
+//			workstep++;
+//			break;
+//		
+//		case 1:  
+//			
+//			workstep++;
+//			break;
+//			
+//		case 2:  
+//			
+//			params_clear();
+//			break;
+//	}
+//}
 void Task_1(void)
 {
 	switch(workstep)
@@ -136,7 +158,7 @@ void Task_3(void)
 			SoundLight();
 			while(Line_flag)
 			{
-				Get_Light_TTL();
+				
 			}
 			workstep ++;
 			break;
@@ -163,7 +185,7 @@ void Task_3(void)
 			}
 			while(Line_flag == 0)
 			{
-				Get_Light_TTL();
+				
 			}
 			workstep++;
 			break;
@@ -173,7 +195,7 @@ void Task_3(void)
 			basespeed = 390;
 			while(Line_flag)
 			{
-				Get_Light_TTL();
+				
 
 			}
 			workstep++;
@@ -220,7 +242,7 @@ void Task_4(void)
 			}
 			while(Line_flag == 0)
 			{
-				Get_Light_TTL();
+				
 			}
 			workstep++;
 			break;
@@ -230,7 +252,7 @@ void Task_4(void)
 			basespeed = 390;
 			while(Line_flag)
 			{
-				Get_Light_TTL();
+				
 			}
 			workstep ++;
 			break;
