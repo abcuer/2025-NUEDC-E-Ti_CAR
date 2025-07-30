@@ -67,7 +67,6 @@ extern float carR_dis;
 /******** Task ********/
 extern uint8_t Task;
 extern float basespeed;
-extern uint8_t Line_flag;
 extern uint8_t first_flag;
 extern uint8_t start_flag;
 extern int16_t baisetime;
@@ -76,5 +75,6 @@ extern uint8_t workstep;
 extern uint8_t turn_angle_flag;
 extern uint8_t lap_flag;
 extern uint8_t target_lap;
+extern int16_t Line_flag;
 
 #endif

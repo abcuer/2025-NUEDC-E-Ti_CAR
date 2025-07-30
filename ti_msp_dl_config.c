@@ -136,9 +136,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
 SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 {
 
-    DL_GPIO_initPeripheralAnalogFunction(GPIO_HFXIN_IOMUX);
-    DL_GPIO_initPeripheralAnalogFunction(GPIO_HFXOUT_IOMUX);
-
     DL_GPIO_initPeripheralOutputFunction(GPIO_PWM_C0_IOMUX,GPIO_PWM_C0_IOMUX_FUNC);
     DL_GPIO_enableOutput(GPIO_PWM_C0_PORT, GPIO_PWM_C0_PIN);
     DL_GPIO_initPeripheralOutputFunction(GPIO_PWM_C1_IOMUX,GPIO_PWM_C1_IOMUX_FUNC);
@@ -240,30 +237,14 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_initDigitalOutput(SR04_Trig_IOMUX);
-
-    DL_GPIO_initDigitalInputFeatures(SR04_Echo_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
-
-    DL_GPIO_initDigitalOutput(OLED_SCL_IOMUX);
-
-    DL_GPIO_initDigitalOutput(OLED_SDA_IOMUX);
-
     DL_GPIO_clearPins(GPIOA, CS_PIN_PIN |
 		LED_Blue_PIN |
 		LED_Green_PIN);
-    DL_GPIO_setPins(GPIOA, BUZZER_Buzzer_PIN |
-		SR04_Trig_PIN |
-		OLED_SCL_PIN |
-		OLED_SDA_PIN);
+    DL_GPIO_setPins(GPIOA, BUZZER_Buzzer_PIN);
     DL_GPIO_enableOutput(GPIOA, BUZZER_Buzzer_PIN |
 		CS_PIN_PIN |
 		LED_Blue_PIN |
-		LED_Green_PIN |
-		SR04_Trig_PIN |
-		OLED_SCL_PIN |
-		OLED_SDA_PIN);
+		LED_Green_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOA, DL_GPIO_PIN_9_EDGE_RISE |
 		DL_GPIO_PIN_8_EDGE_RISE);
     DL_GPIO_setLowerPinsInputFilter(GPIOA, DL_GPIO_PIN_2_INPUT_FILTER_8_CYCLES);
@@ -290,36 +271,19 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 }
 
 
-static const DL_SYSCTL_SYSPLLConfig gSYSPLLConfig = {
-    .inputFreq              = DL_SYSCTL_SYSPLL_INPUT_FREQ_32_48_MHZ,
-	.rDivClk2x              = 1,
-	.rDivClk1               = 0,
-	.rDivClk0               = 0,
-	.enableCLK2x            = DL_SYSCTL_SYSPLL_CLK2X_ENABLE,
-	.enableCLK1             = DL_SYSCTL_SYSPLL_CLK1_DISABLE,
-	.enableCLK0             = DL_SYSCTL_SYSPLL_CLK0_DISABLE,
-	.sysPLLMCLK             = DL_SYSCTL_SYSPLL_MCLK_CLK2X,
-	.sysPLLRef              = DL_SYSCTL_SYSPLL_REF_HFCLK,
-	.qDiv                   = 1,
-	.pDiv                   = DL_SYSCTL_SYSPLL_PDIV_1
-};
+
 SYSCONFIG_WEAK void SYSCFG_DL_SYSCTL_init(void)
 {
 
 	//Low Power Mode is configured to be SLEEP0
     DL_SYSCTL_setBORThreshold(DL_SYSCTL_BOR_THRESHOLD_LEVEL_0);
-    DL_SYSCTL_setFlashWaitState(DL_SYSCTL_FLASH_WAIT_STATE_2);
 
     
 	DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ_BASE);
 	/* Set default configuration */
 	DL_SYSCTL_disableHFXT();
 	DL_SYSCTL_disableSYSPLL();
-    DL_SYSCTL_setHFCLKSourceHFXTParams(DL_SYSCTL_HFXT_RANGE_32_48_MHZ,0, false);
-    DL_SYSCTL_configSYSPLL((DL_SYSCTL_SYSPLLConfig *) &gSYSPLLConfig);
-    DL_SYSCTL_setULPCLKDivider(DL_SYSCTL_ULPCLK_DIV_2);
     DL_SYSCTL_enableMFCLK();
-    DL_SYSCTL_setMCLKSource(SYSOSC, HSCLK, DL_SYSCTL_HSCLK_SOURCE_SYSPLL);
     /* INT_GROUP1 Priority */
     NVIC_SetPriority(GPIOB_INT_IRQn, 0);
 
@@ -327,9 +291,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_SYSCTL_init(void)
 
 
 /*
- * Timer clock configuration to be sourced by  / 8 (10000000 Hz)
+ * Timer clock configuration to be sourced by  / 8 (4000000 Hz)
  * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
- *   2500000 Hz = 10000000 Hz / (8 * (3 + 1))
+ *   1000000 Hz = 4000000 Hz / (8 * (3 + 1))
  */
 static const DL_TimerG_ClockConfig gPWMClockConfig = {
     .clockSel = DL_TIMER_CLOCK_BUSCLK,
@@ -381,9 +345,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_PWM_init(void) {
 
 
 /*
- * Timer clock configuration to be sourced by BUSCLK /  (10000000 Hz)
+ * Timer clock configuration to be sourced by BUSCLK /  (4000000 Hz)
  * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
- *   100000 Hz = 10000000 Hz / (8 * (99 + 1))
+ *   40000 Hz = 4000000 Hz / (8 * (99 + 1))
  */
 static const DL_TimerA_ClockConfig gTIMER_0ClockConfig = {
     .clockSel    = DL_TIMER_CLOCK_BUSCLK,
@@ -393,7 +357,7 @@ static const DL_TimerA_ClockConfig gTIMER_0ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_0_INST_LOAD_VALUE = (10ms * 100000 Hz) - 1
+ * TIMER_0_INST_LOAD_VALUE = (10ms * 40000 Hz) - 1
  */
 static const DL_TimerA_TimerConfig gTIMER_0TimerConfig = {
     .period     = TIMER_0_INST_LOAD_VALUE,
@@ -419,9 +383,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_0_init(void) {
 }
 
 /*
- * Timer clock configuration to be sourced by BUSCLK /  (5000000 Hz)
+ * Timer clock configuration to be sourced by BUSCLK /  (4000000 Hz)
  * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
- *   50000 Hz = 5000000 Hz / (8 * (99 + 1))
+ *   40000 Hz = 4000000 Hz / (8 * (99 + 1))
  */
 static const DL_TimerG_ClockConfig gTIMER_1ClockConfig = {
     .clockSel    = DL_TIMER_CLOCK_BUSCLK,
@@ -431,7 +395,7 @@ static const DL_TimerG_ClockConfig gTIMER_1ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_1_INST_LOAD_VALUE = (10ms * 50000 Hz) - 1
+ * TIMER_1_INST_LOAD_VALUE = (10ms * 40000 Hz) - 1
  */
 static const DL_TimerG_TimerConfig gTIMER_1TimerConfig = {
     .period     = TIMER_1_INST_LOAD_VALUE,
@@ -457,9 +421,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_1_init(void) {
 }
 
 /*
- * Timer clock configuration to be sourced by BUSCLK /  (20000000 Hz)
+ * Timer clock configuration to be sourced by BUSCLK /  (8000000 Hz)
  * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
- *   2000000 Hz = 20000000 Hz / (4 * (9 + 1))
+ *   800000 Hz = 8000000 Hz / (4 * (9 + 1))
  */
 static const DL_TimerA_ClockConfig gTIMER_2ClockConfig = {
     .clockSel    = DL_TIMER_CLOCK_BUSCLK,
@@ -469,7 +433,7 @@ static const DL_TimerA_ClockConfig gTIMER_2ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_2_INST_LOAD_VALUE = (1ms * 2000000 Hz) - 1
+ * TIMER_2_INST_LOAD_VALUE = (1ms * 800000 Hz) - 1
  */
 static const DL_TimerA_TimerConfig gTIMER_2TimerConfig = {
     .period     = TIMER_2_INST_LOAD_VALUE,
@@ -495,9 +459,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_2_init(void) {
 }
 
 /*
- * Timer clock configuration to be sourced by BUSCLK /  (80000000 Hz)
+ * Timer clock configuration to be sourced by BUSCLK /  (32000000 Hz)
  * timerClkFreq = (timerClkSrc / (timerClkDivRatio * (timerClkPrescale + 1)))
- *   80000000 Hz = 80000000 Hz / (1 * (0 + 1))
+ *   32000000 Hz = 32000000 Hz / (1 * (0 + 1))
  */
 static const DL_TimerG_ClockConfig gTIMER_3ClockConfig = {
     .clockSel    = DL_TIMER_CLOCK_BUSCLK,
@@ -507,7 +471,7 @@ static const DL_TimerG_ClockConfig gTIMER_3ClockConfig = {
 
 /*
  * Timer load value (where the counter starts from) is calculated as (timerPeriod * timerClockFreq) - 1
- * TIMER_3_INST_LOAD_VALUE = (100us * 80000000 Hz) - 1
+ * TIMER_3_INST_LOAD_VALUE = (100us * 32000000 Hz) - 1
  */
 static const DL_TimerG_TimerConfig gTIMER_3TimerConfig = {
     .period     = TIMER_3_INST_LOAD_VALUE,
@@ -535,7 +499,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_TIMER_3_init(void) {
 
 
 static const DL_UART_Main_ClockConfig gUART_2ClockConfig = {
-    .clockSel    = DL_UART_MAIN_CLOCK_MFCLK,
+    .clockSel    = DL_UART_MAIN_CLOCK_BUSCLK,
     .divideRatio = DL_UART_MAIN_CLOCK_DIVIDE_RATIO_1
 };
 
@@ -556,17 +520,15 @@ SYSCONFIG_WEAK void SYSCFG_DL_UART_2_init(void)
     /*
      * Configure baud rate by setting oversampling and baud rate divisors.
      *  Target baud rate: 115200
-     *  Actual baud rate: 115107.91
+     *  Actual baud rate: 115211.52
      */
     DL_UART_Main_setOversampling(UART_2_INST, DL_UART_OVERSAMPLING_RATE_16X);
-    DL_UART_Main_setBaudRateDivisor(UART_2_INST, UART_2_IBRD_4_MHZ_115200_BAUD, UART_2_FBRD_4_MHZ_115200_BAUD);
+    DL_UART_Main_setBaudRateDivisor(UART_2_INST, UART_2_IBRD_32_MHZ_115200_BAUD, UART_2_FBRD_32_MHZ_115200_BAUD);
 
 
     /* Configure Interrupts */
     DL_UART_Main_enableInterrupt(UART_2_INST,
                                  DL_UART_MAIN_INTERRUPT_RX);
-    /* Setting the Interrupt Priority */
-    NVIC_SetPriority(UART_2_INST_INT_IRQN, 0);
 
 
     DL_UART_Main_enable(UART_2_INST);
@@ -594,17 +556,15 @@ SYSCONFIG_WEAK void SYSCFG_DL_UART_0_init(void)
     /*
      * Configure baud rate by setting oversampling and baud rate divisors.
      *  Target baud rate: 115200
-     *  Actual baud rate: 115190.78
+     *  Actual baud rate: 115211.52
      */
     DL_UART_Main_setOversampling(UART_0_INST, DL_UART_OVERSAMPLING_RATE_16X);
-    DL_UART_Main_setBaudRateDivisor(UART_0_INST, UART_0_IBRD_40_MHZ_115200_BAUD, UART_0_FBRD_40_MHZ_115200_BAUD);
+    DL_UART_Main_setBaudRateDivisor(UART_0_INST, UART_0_IBRD_32_MHZ_115200_BAUD, UART_0_FBRD_32_MHZ_115200_BAUD);
 
 
     /* Configure Interrupts */
     DL_UART_Main_enableInterrupt(UART_0_INST,
                                  DL_UART_MAIN_INTERRUPT_RX);
-    /* Setting the Interrupt Priority */
-    NVIC_SetPriority(UART_0_INST_INT_IRQN, 1);
 
 
     DL_UART_Main_enable(UART_0_INST);
@@ -633,9 +593,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_SPI_init(void) {
     /*
      * Set the bit rate clock divider to generate the serial output clock
      *     outputBitRate = (spiInputClock) / ((1 + SCR) * 2)
-     *     2000000 = (80000000)/((1 + 19) * 2)
+     *     2000000 = (32000000)/((1 + 7) * 2)
      */
-    DL_SPI_setBitRateSerialClockDivider(SPI_INST, 19);
+    DL_SPI_setBitRateSerialClockDivider(SPI_INST, 7);
     /* Set RX and TX FIFO threshold levels */
     DL_SPI_setFIFOThreshold(SPI_INST, DL_SPI_RX_FIFO_LEVEL_1_2_FULL, DL_SPI_TX_FIFO_LEVEL_1_2_EMPTY);
 
@@ -645,7 +605,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_SPI_init(void) {
 
 SYSCONFIG_WEAK void SYSCFG_DL_SYSTICK_init(void)
 {
-    /* Initialize the period to 400.00 ns */
+    /* Initialize the period to 1.00 μs */
     DL_SYSTICK_init(32);
     /* Enable the SysTick and start counting */
     DL_SYSTICK_enable();

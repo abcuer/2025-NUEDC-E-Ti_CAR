@@ -14,23 +14,23 @@ void angle_correction(void)
 		if( ang > 120) ang -= 180;
 		else if( ang < -120) ang += 180;
 	}
-//	else if(Task == 3 || Task == 4)
-//	{
-//		if(workstep == 1 || workstep == 2)
-//		{
-//			if( ang > 125) ang -= 180;
-//			else if( ang < -125) ang += 180;
-//		}
-//		if(workstep == 3 || workstep == 4)
-//		{
-//			if( ang > 70) ang -= 180;
-//			else if( ang < -70) ang += 180;
-//		}
-//	}
+	else if(Task == 3 || Task == 4)
+	{
+		if(workstep == 1 || workstep == 2)
+		{
+			if( ang > 125) ang -= 180;
+			else if( ang < -125) ang += 180;
+		}
+		if(workstep == 3 || workstep == 4)
+		{
+			if( ang > 70) ang -= 180;
+			else if( ang < -70) ang += 180;
+		}
+	}
 }
 
 /******** 单级角度环 ********/
-void angle1_pid_control(int tar)
+void  angle1_pid_control(int tar)
 {
 	angle1.target = tar;
 	ang = Yaw;

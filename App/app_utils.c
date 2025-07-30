@@ -8,12 +8,12 @@ uint8_t target_lap = 0;
 
 void System_Init(void)
 {
-//	board_init(); // ÑÓ³Ù ´®¿Ú
-//	jy901s_Init();
-//	HC05_Init();
-//	encoder_Init();
-//	timer0_init();
-//	timer1_init();
+	board_init(); // ÑÓ³Ù ´®¿Ú
+	jy901s_Init();
+	HC05_Init();
+	encoder_Init();
+	timer0_init();
+	timer1_init();
 //	Ultrasonic_Init();
 //	OLED_Init();
 //    OLED_Clear();
@@ -163,7 +163,7 @@ void detect_turn_angle_flag(void)
 //	}
 //}
 
-
+ 
 void SoundLight(void)
 {
 	if(SoundLight_flag == 0)
@@ -192,16 +192,22 @@ void UpdateSoundLight(void)
 }
 
 extern int16_t turn_time;
+extern uint8_t turn_flag;
 
 void params_clear(void)
 {
-	Task = 0;
-	lap_flag = 0;
-    lap_count = 0;
-    turn_angle_flag = 0;
-    turn_time = 0;
-    pid_flag = 0;
-    basespeed = 0;
-	target_lap = 0;
+	Task = 0; 
+	lap_count = 0;
+	carL_dis = 0;
+	carR_dis = 0;
+	Get_Encoder_countA = 0;
+	Get_Encoder_countB = 0;
+	baisetime = 0;
+	turn_time = 0;
+	turn_flag = 0;
+	first_flag = 0;
+	start_flag = 0;
+	Line_flag = 0;
+	basespeed = 0;
 	workstep = 0;
 }
