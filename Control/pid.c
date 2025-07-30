@@ -58,8 +58,8 @@ void PID_select(void)
 {
 	switch(pid_flag)
 	{
-		case SPEED_PID:
-			speed2_pid_control(speed_tar);
+		case TURN_90_PID:
+			turn_90_control(basespeed, bias);
 			break;
 		case ANGLE1_PID:
 			if(Yaw_update)

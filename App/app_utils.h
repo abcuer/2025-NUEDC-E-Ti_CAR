@@ -8,7 +8,6 @@ void SoundLight(void);
 void UpdateSoundLight(void);
 void params_clear(void);
 
-void detect_line_flag(void);
-void detect_OA_line(void);
+void detect_turn_angle_flag(void);
 
 #endif

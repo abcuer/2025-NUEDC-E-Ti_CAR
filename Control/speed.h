@@ -9,6 +9,6 @@ int Velocity_B(int TargetVelocity, int CurrentVelocity);
 /***  串级处理用的速度环  ***/
 void speed_pid_control(int speed_tar, int base);
  /***  调参用的速度环  ***/
-void speed2_pid_control(int speed_tar);   
+void turn_90_control(int speed_tar, int offset);   
 
 #endif

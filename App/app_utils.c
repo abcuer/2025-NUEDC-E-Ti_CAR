@@ -4,15 +4,16 @@ uint8_t SoundLight_flag = 0;
 uint16_t SoundLight_time = 0;
 extern uint8_t lap_count;
 float angle_initial = 0;
+uint8_t target_lap = 0;
 
 void System_Init(void)
 {
-	board_init(); // 延迟 串口
-	jy901s_Init();
-	HC05_Init();
-	encoder_Init();
-	timer0_init();
-	timer1_init();
+//	board_init(); // 延迟 串口
+//	jy901s_Init();
+//	HC05_Init();
+//	encoder_Init();
+//	timer0_init();
+//	timer1_init();
 //	Ultrasonic_Init();
 //	OLED_Init();
 //    OLED_Clear();
@@ -39,11 +40,12 @@ void Task_select(void)
 			LED_Blue_ON();
 			start_flag = 1;
 		}
-		if(Key == 3)
+		if(Key == 3)  // 圈数判断
 		{
-		
+			target_lap++;
 		}
 		if (Task > 4) Task = 0; 
+		if(target_lap > 6) target_lap = 0;
 	}
 	
 	// 执行任务
@@ -79,68 +81,87 @@ void capture_initial_yaw(void)
 		LED_Green_OFF();
 		delay_ms(50);
 }
- 
-void detect_OA_line(void)
+
+void detect_turn_angle_flag(void)
 {
-    static int yaw_match_count = 0;
-    static int detected = 0;
-    static int cooldown = 0;
-
-    cooldown++;
-
-    // 判断是否在 -10° ~ 10° 范围内（激光笔对准OA线）
-    if (Yaw >= -10 && Yaw <= 10)
-    {
-        yaw_match_count++;
-    }
-    else
-    {
-        yaw_match_count = 0;
-        detected = 0;  // 允许下一次检测
-    }
-
-    // 若连续检测命中3次，且冷却时间够
-    if (yaw_match_count >= 3 && !detected && cooldown >= 100)
-    {
-        stop_flag++;
-        detected = 1;
-        cooldown = 0;
-    }
-
-    // 如果 stop_flag 达到 2，小车停车
-    if (stop_flag >= 2)
-    {
-        motor_stop();  // 替换为你的停车函数
-    }
-}
-
-
-void detect_line_flag(void)
-{
-    static int line_detect_count = 0;
+    static int turn_angle_detect_count = 0;
     static int debounce_time = 0;
     static int detected = 0;
+    static int detect_timer = 0;
 
     debounce_time++;
+    detect_timer++;
 
-    if (L3 && L2 && L1 && R1 && R2 && R3)
+    if (L4 && L3 && L2 && L1 )
     {
-        line_detect_count++;
+        turn_angle_detect_count++;
+    }
+    else if (!L4 && !L3 && !L2 && !L1)  // 完全离开，允许下次检测
+    {
+        detected = 0;
     }
     else
     {
-        line_detect_count = 0;
-        detected = 0; // 允许下一次检测
+        turn_angle_detect_count = 0;
     }
 
-    // 连续检测命中3次，且时间隔足够
-    if (line_detect_count >= 3 && !detected && debounce_time >= 100)
+    if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
     {
-        line_flag++;       // 增加标志线计数
-        detected = 1;      // 防止连续多次累加
+        turn_angle_flag = 1;
+        lap_flag++;    
         debounce_time = 0;
+        detect_timer = 0;
+        detected = 1;
+    }
+
+    if (detect_timer >= 500)  // 超时重置
+    {
+        turn_angle_detect_count = 0;
+        debounce_time = 0;
+        detect_timer = 0;
+    }
+
+    if (lap_flag >= 4)
+    {
+        lap_count++;
+        lap_flag = 0;
     }
 }
+
+
+//void detect_turn_angle_flag(void)
+//{
+//    static int turn_angle_detect_count = 0;
+//    static int debounce_time = 0;
+//    static int detected = 0;
+
+//    debounce_time++;
+
+//    if (L4 && L3 && L2 && L1 )
+//    {
+//        turn_angle_detect_count++;
+//    }
+//    else
+//    {
+//        turn_angle_detect_count = 0;
+//        detected = 0; // 允许下一次检测
+//    }
+
+//    // 连续检测命中3次，且时间隔足够
+//	if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
+//	{
+//		turn_angle_flag = 1;
+//		lap_flag++;    
+//		debounce_time = 0;
+//		detected = 1; // 防止重复触发
+//	}
+//	
+//	if(lap_flag >= 4)
+//	{
+//		lap_count++;
+//		lap_flag = 0;  // 清零防止重复加圈
+//	}
+//}
 
 
 void SoundLight(void)
@@ -171,12 +192,16 @@ void UpdateSoundLight(void)
 }
 
 extern int16_t turn_time;
-extern uint8_t turn_flag;
 
 void params_clear(void)
 {
 	Task = 0;
-	stop_flag = 0;
-	line_flag = 0;
+	lap_flag = 0;
+    lap_count = 0;
+    turn_angle_flag = 0;
+    turn_time = 0;
+    pid_flag = 0;
+    basespeed = 0;
+	target_lap = 0;
 	workstep = 0;
 }

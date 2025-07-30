@@ -450,21 +450,6 @@
               <FilePath>..\Hardware\buzzer.h</FilePath>
             </File>
             <File>
-              <FileName>oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\oled.c</FilePath>
-            </File>
-            <File>
-              <FileName>oled.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\oled.h</FilePath>
-            </File>
-            <File>
-              <FileName>oledfont.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\oledfont.h</FilePath>
-            </File>
-            <File>
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\motor.c</FilePath>
@@ -513,16 +498,6 @@
               <FileName>IMU.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Hardware\ICM45686\IMU\IMU.h</FilePath>
-            </File>
-            <File>
-              <FileName>sr04.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\sr04.c</FilePath>
-            </File>
-            <File>
-              <FileName>sr04.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\sr04.h</FilePath>
             </File>
             <File>
               <FileName>hc05.c</FileName>

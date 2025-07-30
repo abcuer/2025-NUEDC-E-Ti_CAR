@@ -1,11 +1,10 @@
 #include "headfile.h"
 
+uint16_t bias = 0;
 #define PWM_Limit 1220
 
 float VelcityA_Ki = 7.7, VelcityA_Kp = 0.0;
 float VelcityB_Ki = 7.5, VelcityB_Kp = 0.0;
-
-
 
 float speedA = 0;
 float speedB = 0;
@@ -69,16 +68,16 @@ int Velocity_B(int TargetVelocity, int CurrentVelocity)
     return (int)ControlVelocityB;
 }
 
-/***  调参用的速度环  ***/
-void speed2_pid_control(int speed_tar)
+/***  速度环转90度  ***/
+void turn_90_control(int speed_tar, int offset)
 {
 	speed_cal(0.2); 
 	float PWMA = Velocity_A(speed_tar, speedA);
 	float PWMB = Velocity_B(speed_tar, speedB);
 	if(PWMA > 0) motor_left_dir = 1; 	else motor_left_dir = 0;
 	if(PWMB > 0) motor_right_dir = 1;	else motor_right_dir = 0;
-	Motor_left_Control(fabs(PWMA));
-	Motor_right_Control(fabs(PWMB));
+	Motor_left_Control(fabs(PWMA) - offset);
+	Motor_right_Control(fabs(PWMB) + offset);
 }
 
 /***  串级处理用的速度环  ***/

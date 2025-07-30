@@ -45,13 +45,6 @@ int main(void)
 	encoder_Init();
 	timer0_init();
 	timer1_init();
-//	Ultrasonic_Init();
-//	OLED_Init();
-//    OLED_Clear();
-//	delay_ms(100);//等待部署
-//	IMU_init();
-//	timer3_init();
-//	delay_ms(20);
 	
 	pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
 //	pid_Init(&angle2, POSITION_PID, 3, 0, 15);  // 串级角度环
@@ -60,11 +53,11 @@ int main(void)
 	
 	while(1) 
 	{   
-		if(time_10ms)
-		{
-//			test();
-			time_10ms = 0;
-		}
+//		if(time_10ms)
+//		{
+////			test();
+//			time_10ms = 0;
+//		}
 		Task_select();
 	}
 }
@@ -78,7 +71,7 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
 			PID_select();
-			time_10ms = 1;
+			//time_10ms = 1;
 		}
 	}
 }

@@ -7,9 +7,9 @@
 uint8_t workstep = 0;
 int16_t turn_time = 0;
 uint8_t turn_flag = 0;
+uint8_t turn_angle_flag = 0;
+uint8_t lap_flag = 0;
 uint8_t lap_count = 0;
-uint8_t line_flag = 0;
-uint8_t stop_flag = 0;
 
 void Task_1(void)
 {
@@ -17,42 +17,47 @@ void Task_1(void)
 	{
 		case 0: 
 			pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
-			pid_Init(&trackLine1, POSITION_PID, 6, 0, 10);  // 单级角度环
-			line_flag = 0;
-			stop_flag = 0;
+			pid_Init(&trackLine1, POSITION_PID, 6, 0, 10);  // 单级寻迹环
+			lap_flag = 0;
+			lap_count = 0;
+			turn_angle_flag = 0;
 			turn_time = 0;
+			pid_flag = 0;
 			basespeed = 300;	
 			workstep++;
 			break;
 		
 		case 1: 
-			if(line_flag < 4) 
+			if(turn_angle_flag == 0)
 			{
-				detect_line_flag();
+				detect_turn_angle_flag();
 				pid_flag = TRACK1_PID;
-				trackLine1.target = 0;
 			}
 			else
 			{
-				SoundLight();
-				if(turn_time++ <= TURNTIME)
+				detect_turn_angle_flag();
+				if(lap_flag <= 4) 
 				{
-					pid_flag =  ANGLE1_PID;
-					angle_tar = 40;
+					if(turn_time++ <= TURNTIME)
+					{
+						bias = 30;
+						pid_flag = TURN_90_PID;
+					}
+					else
+					{						
+						turn_angle_flag = 0;
+						turn_time = 0;
+						workstep++; 
+					}
 				}
-				else
-				{
-					workstep++;
-				}
+									
 			}
 			break;
 			
 		case 2:  
-			if(stop_flag < 2)
+			if(lap_count <= target_lap)
 			{
-				detect_OA_line();  // 内含防误识别
-				pid_flag = TRACK1_PID;
-				trackLine1.target = 0;
+				workstep = 0;
 			}
 			else
 			{
