@@ -46,10 +46,21 @@ void Get_Light_TTL(void)
         lap_detected = 1;     // 防止连续触发
         debounce_time = 0;
 
-        if (lap_flag >= 4)   // 4个拐角
-        {
-            lap_count++;    // 圈数+1
-			lap_flag = 0;
-        }
+		if(Task == 1)
+		{
+			if (lap_flag >= 4)   // 4个拐角
+			{
+				lap_count++;    // 圈数+1
+				lap_flag = 0;
+			}
+		} 
+		else if(Task == 2)
+		{
+			if (lap_flag >= 5)   // 5个拐角
+			{
+				lap_count++;    // 圈数+1
+				lap_flag = 0;
+			}
+		}
     }
 } 

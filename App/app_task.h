@@ -3,5 +3,6 @@
 
 
 void Task_1(void);
+void Task_2(void);
 
 #endif

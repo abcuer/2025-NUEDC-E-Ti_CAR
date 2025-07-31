@@ -13,8 +13,6 @@ void Task_select(void)
 	// 切换任务
 	if(Task == 0)
 	{
-		LED_Blue_ON();
-		LED_Green_ON();
 		if (Key1 == 1) 
 		{
 			LED_Green_ON();
@@ -25,18 +23,19 @@ void Task_select(void)
 			LED_Blue_ON();
 			Task = 1;
 		}
-		if (Task > 1) Task = 0; 
+		if (Task > 2) Task = 0; 
 		if(target_lap > 5) target_lap = 0;
 	}
 	
 	// 执行任务
-	if(target_lap > 0)
+	if(start_flag == 1)
 	{
 		if(first_flag == 1)
 		{
 			switch(Task)
 			{
 				case 1: Task_1(); break;
+				case 2: Task_2(); break;
 			}
 		}
 	}
