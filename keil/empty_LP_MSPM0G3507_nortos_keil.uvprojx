@@ -514,6 +514,16 @@
               <FileType>5</FileType>
               <FilePath>..\Control\gray_track.h</FilePath>
             </File>
+            <File>
+              <FileName>distance.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Control\distance.c</FilePath>
+            </File>
+            <File>
+              <FileName>distance.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Control\distance.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

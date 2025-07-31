@@ -24,6 +24,7 @@
 /***************** Control *******************/
 #include "pid.h"
 #include "speed.h"
+#include "distance.h" 
 #include "gray_track.h"
 /***************** App ***********************/
 #include "app_utils.h"
@@ -54,6 +55,8 @@ extern int angle_tar;
 /******** distance ********/
 extern int Get_Encoder_countA;
 extern int Get_Encoder_countB;
+extern float carL_dis;
+extern float carR_dis;
 
 /******** Task ********/
 extern uint8_t Task;
