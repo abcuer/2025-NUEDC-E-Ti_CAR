@@ -17,7 +17,6 @@ void Task_1(void)
 	switch(workstep)
 	{
 		case 0: 
-			pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
 			pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
 			lap_flag = 0;
 			lap_count = 0;
@@ -27,86 +26,108 @@ void Task_1(void)
 			basespeed = 280;	
 			workstep++;
 			break;
-		
-//		case 1: 
-//			if(turn_angle_flag == 0)
-//			{
-//				Get_Light_TTL();
-//				pid_flag = TRACK1_PID;
-//			}
-//			else if(turn_angle_flag)
-//			{
-//				motor_stop();
-//				delay_ms(1000);
-//				turn_flag = 1;
-//				while(turn_flag) 
-//				{
-//					Get_Light_TTL();
-//					turn_time++;
-//					pid_flag = TURN_90_PID;
-//					basespeed = 20;	
-//					bias = 50;
-//					if(turn_time > TURNTIME)
-//					{	
-//						turn_angle_flag = 0;
-//						turn_time = 0;
-//						turn_flag = 0;
-//					}
-//				}
-//				basespeed = 280;
-//				workstep++; 				
-//			}
-//			break;
+
 		case 1:
-		
-			if(turn_angle_flag && turn_flag == 0)
+			if(lap_count >= target_lap)
 			{
-				Get_Light_TTL();
-//				motor_stop();
-//				delay_ms(1000);     // 可以保留一次性停顿
-				turn_flag = 1;
-				turn_time = 0;
-				
-			}
-
-			if(turn_flag)
-			{
-				Get_Light_TTL();
-//				pid_flag = ANGLE1_PID;
-//				angle_tar = 90;
-				pid_flag = TURN_90_PID;
-				bias = 200;
-				basespeed = 20;
-				turn_time++;
-				if(turn_time > TURNTIME)
+				if(!turn_flag)  // 进入转弯阶段
 				{
-					turn_angle_flag = 0;
-					turn_flag = 0;
-					workstep++;
+					turn_flag = 1;
+					turn_time = 0;
 				}
-			}
 
+				if(turn_flag)
+				{
+					pid_flag = TURN_90_PID;
+					bias = 200;
+					basespeed = 20;
+					turn_time++;
+
+					if(turn_time > TURNTIME)
+					{
+						turn_flag = 0;
+						motor_stop();
+						params_clear();
+						LED_Blue_ON();
+					}
+				}
+				break;
+			}
+			// ✅ 只在非转弯阶段检测是否压线
 			if(!turn_flag)
 			{
 				Get_Light_TTL();
 				pid_flag = TRACK1_PID;
+
+				if(turn_angle_flag)
+				{
+					turn_flag = 1;
+					turn_time = 0;
+				}
 			}
-			break;
-			
-		case 2:  
-			if(lap_count < 1)
+			else  // 正在转弯
 			{
-				workstep = 0;
-			}
-			else
-			{
-				motor_stop();
-				params_clear();
+				Get_Light_TTL();
+				pid_flag = TURN_90_PID;
+				bias = 200;
+				basespeed = 20;
+				turn_time++;
+
+				if(turn_time > TURNTIME)
+				{
+					turn_angle_flag = 0;
+					turn_flag = 0;
+					basespeed = 280;
+				}
 			}
 			break;
 	}
 }
 
+
+//		case 1:
+//			if(turn_angle_flag && turn_flag == 0)
+//			{
+//				Get_Light_TTL();
+//				turn_flag = 1;
+//				turn_time = 0;
+//			}
+
+//			if(turn_flag)
+//			{
+//				Get_Light_TTL();
+//				pid_flag = TURN_90_PID;
+//				bias = 190;
+//				basespeed = 20;
+//				turn_time++;
+//				if(turn_time > TURNTIME)
+//				{
+//					turn_angle_flag = 0;
+//					turn_flag = 0;
+//					workstep++;
+//				}
+//			}
+
+//			if(!turn_flag)
+//			{
+//				Get_Light_TTL();
+//				pid_flag = TRACK1_PID;
+//			}
+//			break;
+//			
+//		case 2:  
+//			if(lap_count < 1)
+//			{
+//				workstep = 0;
+//			}
+//			else
+//			{
+//				motor_stop();
+//				delay_ms(100);
+//				params_clear();
+//			}
+//			break;
+	
 
 void Task_2(void)
 {

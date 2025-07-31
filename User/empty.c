@@ -57,29 +57,10 @@ int main(void)
 	pid_Init(&angle2, POSITION_PID, 0, 0, 0);  // 串级角度环
 	pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
 	pid_Init(&trackLine2, POSITION_PID, 6, 0, 30);  // 串级寻迹环
-//	test();
+
 	while(1) 
 	{   
-		
-//		if(L2 && L3	)
-//		{
-//			basespeed = 0;
-//			bias =0;
-//		}
-//					if(turn_time++ <= TURNTIME)
-//					{
-//						bias = 80;
-//						pid_flag = TURN_90_PID;
-//					}
-//					else
-//					{						
-//						turn_time = 0;
-//						
-//					}
-		if(time_10ms)
-		{
-			time_10ms = 0;
-		}
+
 		Task_select();
 	}
 }
@@ -94,7 +75,6 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 		{	
 			PID_select();
 			speed_cal(0.2); 
-//			Key_Tick();
 			time_10ms = 1;
 		}
 	}

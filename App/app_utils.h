@@ -1,7 +1,6 @@
 #ifndef _position_h_
 #define _position_h_
 
-void detect_turn_angle_flag(void);
 void Task_select(void);
 void capture_initial_yaw(void);
 void SoundLight(void);

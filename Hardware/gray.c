@@ -39,8 +39,7 @@ void Get_Light_TTL(void)
         lap_detected = 0; // 允许重新检测下一圈
     }
 
-    // 连续全黑3次，并且时间隔足够，才认为真正过终点
-    if (full_black_count >= 3 && !lap_detected && debounce_time >= 20)
+    if (full_black_count >= 3 && !lap_detected && debounce_time >= 100)
     {
 		turn_angle_flag = 1;
         lap_flag++;          // 拐角
@@ -53,4 +52,4 @@ void Get_Light_TTL(void)
 			lap_flag = 0;
         }
     }
-}
+} 

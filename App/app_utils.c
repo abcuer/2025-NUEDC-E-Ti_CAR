@@ -14,6 +14,8 @@ void Task_select(void)
 	// 切换任务
 	if(Task == 0)
 	{
+		LED_Blue_ON();
+		LED_Green_ON();
 		if (Key1 == 1) 
 		{
 			LED_Green_ON();
@@ -28,7 +30,7 @@ void Task_select(void)
 //		{
 //		}
 		if (Task > 1) Task = 0; 
-		if(target_lap > 6) target_lap = 0;
+		if(target_lap > 5) target_lap = 0;
 	}
 	
 	// 执行任务
@@ -110,43 +112,6 @@ void capture_initial_yaw(void)
 //        lap_flag = 0;
 //    }
 //}
-
-
-void detect_turn_angle_flag(void)
-{
-
-	
-    static int turn_angle_detect_count = 0;
-    static int debounce_time = 0;
-    static int detected = 0;
-
-    debounce_time++;
-
-    if (L3 && L2 && L1)
-    {
-        turn_angle_detect_count++;
-    }
-    else
-    {
-        turn_angle_detect_count = 0;
-        detected = 0; // 允许下一次检测
-    }
-
-    // 连续检测命中3次，且时间隔足够
-	if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
-	{
-		turn_angle_flag = 1;
-		lap_flag++;    
-		debounce_time = 0;
-		detected = 1; // 防止重复触发
-	}
-	
-	if(lap_flag >= 4)
-	{
-		lap_count++;
-		lap_flag = 0;  // 清零防止重复加圈
-	}
-}
 
  
 void SoundLight(void)
