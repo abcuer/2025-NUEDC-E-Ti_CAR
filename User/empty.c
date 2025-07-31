@@ -40,7 +40,7 @@ uint8_t time_10ms = 0;
 int main(void)
 {
 	board_init(); // 延迟 串口
-//	jy901s_Init();
+	jy901s_Init();
 //	HC05_Init();
 	encoder_Init();
 	timer0_init();
@@ -55,16 +55,31 @@ int main(void)
 	
 	pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
 	pid_Init(&angle2, POSITION_PID, 0, 0, 0);  // 串级角度环
-	pid_Init(&trackLine1, POSITION_PID, 6, 0, 10);  // 单级寻迹环
-	pid_Init(&trackLine2, POSITION_PID, 0, 0, 0);  // 串级寻迹环
-	
+	pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
+	pid_Init(&trackLine2, POSITION_PID, 6, 0, 30);  // 串级寻迹环
+//	test();
 	while(1) 
 	{   
-//		if(time_10ms)
+		
+//		if(L2 && L3	)
 //		{
-//			test();
-//			time_10ms = 0;
+//			basespeed = 0;
+//			bias =0;
 //		}
+//					if(turn_time++ <= TURNTIME)
+//					{
+//						bias = 80;
+//						pid_flag = TURN_90_PID;
+//					}
+//					else
+//					{						
+//						turn_time = 0;
+//						
+//					}
+		if(time_10ms)
+		{
+			time_10ms = 0;
+		}
 		Task_select();
 	}
 }
@@ -77,8 +92,9 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
-			speed_cal(0.2); 
 			PID_select();
+			speed_cal(0.2); 
+//			Key_Tick();
 			time_10ms = 1;
 		}
 	}
@@ -90,8 +106,7 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 	{
 		if(DL_TIMER_IIDX_LOAD)
 		{	
-			Key_Tick();
-			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
+			if (Task == 1 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
 		}
 	}

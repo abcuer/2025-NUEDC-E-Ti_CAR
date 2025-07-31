@@ -76,5 +76,6 @@ extern uint8_t turn_angle_flag;
 extern uint8_t lap_flag;
 extern uint8_t target_lap;
 extern int16_t Line_flag;
+extern uint8_t lap_count;
 
 #endif

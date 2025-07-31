@@ -4,8 +4,8 @@
 pid_t trackLine1;   // 单级寻迹环
 pid_t trackLine2;	// 串级寻迹环
 
-float left[3]  = {1, 2, 3};  // L1 ~ L4
-float right[3] = {-1, -2, -3}; // R1 ~ R4
+float left[3]  = {-1,-2, -3};  // L1 ~ L4
+float right[3] = {1, 2, 3}; // R1 ~ R4
 
 /***** 单级寻迹环 ****/
 void track1_pid_control(float targetValue, float basespeed)

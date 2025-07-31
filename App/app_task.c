@@ -1,83 +1,100 @@
 #include "headfile.h"
 
-#define TURNTIME 11900
+#define TURNTIME 60000
 #define DISTACNE1 100
 #define DISTACNE2 100
 
 uint8_t workstep = 0;
-int16_t turn_time = 0;
+int32_t turn_time = 0;
 uint8_t turn_flag = 0;
 uint8_t turn_angle_flag = 0;
 uint8_t lap_flag = 0;
 uint8_t lap_count = 0;
 
 
-//void Task_1(void)
-//{
-//	switch(workstep)
-//	{
-//		case 0: 
-//			SoundLight();
-//			//test();
-//			workstep++;
-//			break;
-//		
-//		case 1:  
-//			
-//			workstep++;
-//			break;
-//			
-//		case 2:  
-//			
-//			params_clear();
-//			break;
-//	}
-//}
 void Task_1(void)
 {
 	switch(workstep)
 	{
 		case 0: 
 			pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
-			pid_Init(&trackLine1, POSITION_PID, 6, 0, 10);  // 单级寻迹环
+			pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
 			lap_flag = 0;
 			lap_count = 0;
 			turn_angle_flag = 0;
 			turn_time = 0;
 			pid_flag = 0;
-			basespeed = 300;	
+			basespeed = 280;	
 			workstep++;
 			break;
 		
-		case 1: 
-			if(turn_angle_flag == 0)
+//		case 1: 
+//			if(turn_angle_flag == 0)
+//			{
+//				Get_Light_TTL();
+//				pid_flag = TRACK1_PID;
+//			}
+//			else if(turn_angle_flag)
+//			{
+//				motor_stop();
+//				delay_ms(1000);
+//				turn_flag = 1;
+//				while(turn_flag) 
+//				{
+//					Get_Light_TTL();
+//					turn_time++;
+//					pid_flag = TURN_90_PID;
+//					basespeed = 20;	
+//					bias = 50;
+//					if(turn_time > TURNTIME)
+//					{	
+//						turn_angle_flag = 0;
+//						turn_time = 0;
+//						turn_flag = 0;
+//					}
+//				}
+//				basespeed = 280;
+//				workstep++; 				
+//			}
+//			break;
+		case 1:
+		
+			if(turn_angle_flag && turn_flag == 0)
 			{
-				detect_turn_angle_flag();
-				pid_flag = TRACK1_PID;
+				Get_Light_TTL();
+//				motor_stop();
+//				delay_ms(1000);     // 可以保留一次性停顿
+				turn_flag = 1;
+				turn_time = 0;
+				
 			}
-			else
+
+			if(turn_flag)
 			{
-				detect_turn_angle_flag();
-				if(lap_flag <= 4) 
+				Get_Light_TTL();
+//				pid_flag = ANGLE1_PID;
+//				angle_tar = 90;
+				pid_flag = TURN_90_PID;
+				bias = 200;
+				basespeed = 20;
+				turn_time++;
+				if(turn_time > TURNTIME)
 				{
-					if(turn_time++ <= TURNTIME)
-					{
-						bias = 30;
-						pid_flag = TURN_90_PID;
-					}
-					else
-					{						
-						turn_angle_flag = 0;
-						turn_time = 0;
-						workstep++; 
-					}
+					turn_angle_flag = 0;
+					turn_flag = 0;
+					workstep++;
 				}
-									
+			}
+
+			if(!turn_flag)
+			{
+				Get_Light_TTL();
+				pid_flag = TRACK1_PID;
 			}
 			break;
 			
 		case 2:  
-			if(lap_count <= target_lap)
+			if(lap_count < 1)
 			{
 				workstep = 0;
 			}

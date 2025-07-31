@@ -28,7 +28,7 @@
 //{
 //	pid_flag = TRACK1_PID;
 //   
-//	basespeed = 300;
+//	basespeed = 250;
 //}
 
 /************************ ´®¼¶Ñ°¼£»·µ÷²Î ***************************/
@@ -36,9 +36,16 @@
 //{
 //	pid_flag = TRACK2_PID;
 //   
-//	basespeed = 50;
+//	basespeed = 0;
 //}
 
+
+void test(void)
+{
+	pid_flag = TURN_90_PID;
+  bias = 30;
+	basespeed = 20;
+}
 
 
 /************************ ICM45686 SPI¶ÁÈ¡Yaw ³¬Éù²¨²â¾à ***************************/

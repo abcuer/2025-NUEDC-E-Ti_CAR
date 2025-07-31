@@ -75,8 +75,10 @@ void turn_90_control(int speed_tar, int offset)
 	float PWMB = Velocity_B(speed_tar, speedB);
 	if(PWMA > 0) motor_left_dir = 1; 	else motor_left_dir = 0;
 	if(PWMB > 0) motor_right_dir = 1;	else motor_right_dir = 0;
-	Motor_left_Control(fabs(PWMA) - offset);
-	Motor_right_Control(fabs(PWMB) + offset);
+	Motor_left_Control(0);
+	Motor_right_Control(offset + fabs(PWMB));
+//	Motor_left_Control(offset + fabs(PWMB));
+//	Motor_right_Control(offset - fabs(PWMB));
 }
 
 /***  串级处理用的速度环  ***/

@@ -3,6 +3,7 @@
 #include "headfile.h"
 
 void Gray_Read(void);
+void Get_Light_TTL(void);
 
 extern int8_t L3;
 extern int8_t L2;

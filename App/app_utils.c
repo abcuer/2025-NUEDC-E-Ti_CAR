@@ -2,56 +2,37 @@
 
 uint8_t SoundLight_flag = 0;
 uint16_t SoundLight_time = 0;
-extern uint8_t lap_count;
+
 float angle_initial = 0;
 uint8_t target_lap = 0;
 
-void System_Init(void)
-{
-	board_init(); // 延迟 串口
-	jy901s_Init();
-	HC05_Init();
-	encoder_Init();
-	timer0_init();
-	timer1_init();
-//	Ultrasonic_Init();
-//	OLED_Init();
-//    OLED_Clear();
-//	delay_ms(100);//等待部署
-//	IMU_init();
-//	timer3_init();
-//	delay_ms(20);
-}
-
 void Task_select(void)
 {
-	uint8_t Key = Key_GetNum();
-		
+	uint8_t Key1 = Key_GetNum1();
+	uint8_t Key2 = Key_GetNum2();
+	
 	// 切换任务
-	if(start_flag == 0)
+	if(Task == 0)
 	{
-		if (Key == 1) 
+		if (Key1 == 1) 
 		{
 			LED_Green_ON();
-			Task++;
-		}
-		if(Key == 2)
-		{
-			LED_Blue_ON();
-			start_flag = 1;
-		}
-		if(Key == 3)  // 圈数判断
-		{
-//			LED_Blue_ON();
-//			LED_Green_ON();
 			target_lap++;
 		}
-		if (Task > 4) Task = 0; 
+		if(Key2 == 1)
+		{
+			LED_Blue_ON();
+			Task = 1;
+		}
+//		if(Key == 3)  // 圈数判断
+//		{
+//		}
+		if (Task > 1) Task = 0; 
 		if(target_lap > 6) target_lap = 0;
 	}
 	
 	// 执行任务
-	if(start_flag == 1)
+	if(target_lap > 0)
 	{
 		if(first_flag == 1)
 		{
@@ -84,86 +65,88 @@ void capture_initial_yaw(void)
 		delay_ms(50);
 }
 
-void detect_turn_angle_flag(void)
-{
-    static int turn_angle_detect_count = 0;
-    static int debounce_time = 0;
-    static int detected = 0;
-    static int detect_timer = 0;
-
-    debounce_time++;
-    detect_timer++;
-
-    if (L3 && L2 && L1 && M)
-    {
-        turn_angle_detect_count++;
-    }
-    else if (!M && !L3 && !L2 && !L1)  // 完全离开，允许下次检测
-    {
-        detected = 0;
-    }
-    else
-    {
-        turn_angle_detect_count = 0;
-    }
-
-    if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
-    {
-        turn_angle_flag = 1;
-        lap_flag++;    
-        debounce_time = 0;
-        detect_timer = 0;
-        detected = 1;
-    }
-
-    if (detect_timer >= 500)  // 超时重置
-    {
-        turn_angle_detect_count = 0;
-        debounce_time = 0;
-        detect_timer = 0;
-    }
-
-    if (lap_flag >= 4)
-    {
-        lap_count++;
-        lap_flag = 0;
-    }
-}
-
-
 //void detect_turn_angle_flag(void)
 //{
 //    static int turn_angle_detect_count = 0;
 //    static int debounce_time = 0;
 //    static int detected = 0;
+//    static int detect_timer = 0;
 
 //    debounce_time++;
+//    detect_timer++;
 
-//    if (L4 && L3 && L2 && L1 )
+//    if (L3 && L2 && L1)
 //    {
 //        turn_angle_detect_count++;
+//    }
+//    else if (!L3 && !L2 && !L1)  // 完全离开，允许下次检测
+//    {
+//        detected = 0;
 //    }
 //    else
 //    {
 //        turn_angle_detect_count = 0;
-//        detected = 0; // 允许下一次检测
 //    }
 
-//    // 连续检测命中3次，且时间隔足够
-//	if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
-//	{
-//		turn_angle_flag = 1;
-//		lap_flag++;    
-//		debounce_time = 0;
-//		detected = 1; // 防止重复触发
-//	}
-//	
-//	if(lap_flag >= 4)
-//	{
-//		lap_count++;
-//		lap_flag = 0;  // 清零防止重复加圈
-//	}
+//    if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 1)
+//    {
+//        turn_angle_flag = 1;
+//        lap_flag++;    
+//        debounce_time = 0;
+//        detect_timer = 0;
+//        detected = 1;
+//    }
+
+//    if (detect_timer >= 500)  // 超时重置
+//    {
+//        turn_angle_detect_count = 0;
+//        debounce_time = 0;
+//        detect_timer = 0;
+//    }
+
+//    if (lap_flag >= 4)
+//    {
+//        lap_count++;
+//        lap_flag = 0;
+//    }
 //}
+
+
+void detect_turn_angle_flag(void)
+{
+
+	
+    static int turn_angle_detect_count = 0;
+    static int debounce_time = 0;
+    static int detected = 0;
+
+    debounce_time++;
+
+    if (L3 && L2 && L1)
+    {
+        turn_angle_detect_count++;
+    }
+    else
+    {
+        turn_angle_detect_count = 0;
+        detected = 0; // 允许下一次检测
+    }
+
+    // 连续检测命中3次，且时间隔足够
+	if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 100)
+	{
+		turn_angle_flag = 1;
+		lap_flag++;    
+		debounce_time = 0;
+		detected = 1; // 防止重复触发
+	}
+	
+	if(lap_flag >= 4)
+	{
+		lap_count++;
+		lap_flag = 0;  // 清零防止重复加圈
+	}
+}
 
  
 void SoundLight(void)
@@ -193,7 +176,7 @@ void UpdateSoundLight(void)
     }
 }
 
-extern int16_t turn_time;
+extern int32_t turn_time;
 extern uint8_t turn_flag;
 
 void params_clear(void)
@@ -203,6 +186,7 @@ void params_clear(void)
     lap_count = 0;
     turn_angle_flag = 0;
     turn_time = 0;
+	turn_flag = 0;
     pid_flag = 0;
     basespeed = 0;
 	target_lap = 0;
