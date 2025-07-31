@@ -3,7 +3,6 @@
 uint8_t SoundLight_flag = 0;
 uint16_t SoundLight_time = 0;
 
-float angle_initial = 0;
 uint8_t target_lap = 0;
 
 void Task_select(void)
@@ -26,9 +25,6 @@ void Task_select(void)
 			LED_Blue_ON();
 			Task = 1;
 		}
-//		if(Key == 3)  // 圈数判断
-//		{
-//		}
 		if (Task > 1) Task = 0; 
 		if(target_lap > 5) target_lap = 0;
 	}
@@ -41,79 +37,24 @@ void Task_select(void)
 			switch(Task)
 			{
 				case 1: Task_1(); break;
-				case 2: Task_2(); break;
-				case 3: Task_3(); break;
-				case 4: Task_4(); break;
 			}
 		}
 	}
 }
-
 
 void capture_initial_yaw(void) 
 {
 		LED_Blue_ON();
 		delay_ms(50);
 		LED_Blue_OFF();
+		delay_ms(50);
 		LED_Green_ON();
-		float ang1 = Yaw;
-		delay_ms(50);
-		float ang2 = Yaw;
-		delay_ms(50);
-		float ang3 = Yaw;
-		angle_initial = (ang1 + ang2 + ang3) / 3;
+		delay_ms(100);
 		first_flag = 1;
 		LED_Green_OFF();
 		delay_ms(50);
 }
 
-//void detect_turn_angle_flag(void)
-//{
-//    static int turn_angle_detect_count = 0;
-//    static int debounce_time = 0;
-//    static int detected = 0;
-//    static int detect_timer = 0;
-
-//    debounce_time++;
-//    detect_timer++;
-
-//    if (L3 && L2 && L1)
-//    {
-//        turn_angle_detect_count++;
-//    }
-//    else if (!L3 && !L2 && !L1)  // 完全离开，允许下次检测
-//    {
-//        detected = 0;
-//    }
-//    else
-//    {
-//        turn_angle_detect_count = 0;
-//    }
-
-//    if (turn_angle_detect_count >= 3 && !detected && debounce_time >= 1)
-//    {
-//        turn_angle_flag = 1;
-//        lap_flag++;    
-//        debounce_time = 0;
-//        detect_timer = 0;
-//        detected = 1;
-//    }
-
-//    if (detect_timer >= 500)  // 超时重置
-//    {
-//        turn_angle_detect_count = 0;
-//        debounce_time = 0;
-//        detect_timer = 0;
-//    }
-
-//    if (lap_flag >= 4)
-//    {
-//        lap_count++;
-//        lap_flag = 0;
-//    }
-//}
-
- 
 void SoundLight(void)
 {
 	if(SoundLight_flag == 0)

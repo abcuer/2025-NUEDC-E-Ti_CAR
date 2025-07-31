@@ -95,10 +95,10 @@ void _sys_exit(int x)
 int fputc(int ch, FILE *stream)
 {
     // ������0æ��ʱ��ȴ�����æ��ʱ���ٷ��ʹ��������ַ�
-    while (DL_UART_isBusy(UART_2_INST) == true)
+    while (DL_UART_isBusy(UART_0_INST) == true)
         ;
 
-    DL_UART_Main_transmitData(UART_2_INST, ch);
+    DL_UART_Main_transmitData(UART_0_INST, ch);
 
     return ch;
 }

@@ -6,6 +6,4 @@
 
 void timer0_init(void);
 void timer1_init(void);
-void timer3_init(void);
-
 #endif

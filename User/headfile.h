@@ -20,25 +20,19 @@
 #include "motor.h"
 #include "encoder.h"
 #include "gray.h"
-#include "jy901s.h"
 #include "hc05.h"
-#include "IMU.h"
 /***************** Control *******************/
 #include "pid.h"
 #include "speed.h"
-#include "angle.h"
 #include "gray_track.h"
-#include "distance.h"
 /***************** App ***********************/
 #include "app_utils.h"
 #include "app_task.h"
 #include "test.h"
 
 #define TURN_90_PID 	1
-#define ANGLE1_PID 		2
-#define ANGLE2_PID	 	3
-#define TRACK1_PID 		4
-#define TRACK2_PID 		5
+#define TRACK1_PID 		2
+#define TRACK2_PID 		3
 
 /******** IMU *********/
 extern uint32_t nowtime;
@@ -56,13 +50,10 @@ extern int speed_tar;
 extern int angle_tar;
 
 /******** angle ********/
-extern float angle_initial;
 
 /******** distance ********/
 extern int Get_Encoder_countA;
 extern int Get_Encoder_countB;
-extern float carL_dis;
-extern float carR_dis;
 
 /******** Task ********/
 extern uint8_t Task;

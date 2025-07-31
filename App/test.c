@@ -40,12 +40,12 @@
 //}
 
 
-void test(void)
-{
-	pid_flag = TURN_90_PID;
-  bias = 30;
-	basespeed = 20;
-}
+//void test(void)
+//{
+//	pid_flag = TURN_90_PID;
+//  bias = 30;
+//	basespeed = 20;
+//}
 
 
 /************************ ICM45686 SPI¶ÁÈ¡Yaw ³¬Éù²¨²â¾à ***************************/

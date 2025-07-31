@@ -35,32 +35,20 @@ uint8_t Task = 0;
 uint8_t start_flag = 0;
 uint8_t first_flag = 0;
 float basespeed = 0;
-uint8_t time_10ms = 0;
 
 int main(void)
 {
 	board_init(); // 延迟 串口
-	jy901s_Init();
 //	HC05_Init();
 	encoder_Init();
 	timer0_init();
 	timer1_init();
-//	Ultrasonic_Init();
-//	OLED_Init();
-//    OLED_Clear();
-//	delay_ms(100);//等待部署
-//	IMU_init();
-//	timer3_init();
-//	delay_ms(20);
 	
-	pid_Init(&angle1, POSITION_PID, 15, 0, 86);  // 单级角度环
-	pid_Init(&angle2, POSITION_PID, 0, 0, 0);  // 串级角度环
 	pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
 	pid_Init(&trackLine2, POSITION_PID, 6, 0, 30);  // 串级寻迹环
 
 	while(1) 
 	{   
-
 		Task_select();
 	}
 }
@@ -75,7 +63,6 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 		{	
 			PID_select();
 			speed_cal(0.2); 
-			time_10ms = 1;
 		}
 	}
 }
@@ -91,21 +78,5 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 		}
 	}
 }
-
-
-void TIMER_3_INST_IRQHandler(void)	// ICM42586需要  100us
-{
-	switch(DL_TimerG_getPendingInterrupt(TIMER_3_INST))
-	{
-		case DL_TIMER_IIDX_ZERO:
-			nowtime++;
-			DL_TimerG_clearInterruptStatus(TIMER_3_INST, DL_TIMER_IIDX_ZERO);
-		break;
-		default:
-			
-		break;
-	}
-}
-
 
 

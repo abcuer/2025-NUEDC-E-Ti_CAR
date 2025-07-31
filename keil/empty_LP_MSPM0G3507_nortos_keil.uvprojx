@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\Hardware;..\..\TI_CAR;..\User;..\Code;..\Bsp;..\App;..\Control;..\Hardware\ICM45686;..\Hardware\ICM45686\IMU</IncludePath>
+              <IncludePath>..\..\source\third_party\CMSIS\Core\Include;..\..\source;..\..\TI_CAR;..\User;..\Code;..\Bsp;..\App;..\Control;..\Hardware</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -403,16 +403,6 @@
               <FileName>timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Bsp\timer.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\bsp_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Bsp\bsp_spi.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -480,26 +470,6 @@
               <FilePath>..\Hardware\gray.h</FilePath>
             </File>
             <File>
-              <FileName>jy901s.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\jy901s.c</FilePath>
-            </File>
-            <File>
-              <FileName>jy901s.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\jy901s.h</FilePath>
-            </File>
-            <File>
-              <FileName>IMU.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\ICM45686\IMU\IMU.c</FilePath>
-            </File>
-            <File>
-              <FileName>IMU.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\IMU\IMU.h</FilePath>
-            </File>
-            <File>
               <FileName>hc05.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\hc05.c</FilePath>
@@ -533,26 +503,6 @@
               <FileName>speed.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Control\speed.h</FilePath>
-            </File>
-            <File>
-              <FileName>angle.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Control\angle.c</FilePath>
-            </File>
-            <File>
-              <FileName>angle.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Control\angle.h</FilePath>
-            </File>
-            <File>
-              <FileName>distance.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Control\distance.c</FilePath>
-            </File>
-            <File>
-              <FileName>distance.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Control\distance.h</FilePath>
             </File>
             <File>
               <FileName>gray_track.c</FileName>
@@ -753,56 +703,6 @@
               <FileName>dl_adc12.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ti\dl_adc12.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>ICM45686</GroupName>
-          <Files>
-            <File>
-              <FileName>basic_read_reg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\ICM45686\basic_read_reg.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu.h</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_defs.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_defs.h</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_driver.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_driver.h</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_regmap_le.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_regmap_le.h</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_transport.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_transport.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_transport.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_transport.h</FilePath>
-            </File>
-            <File>
-              <FileName>inv_imu_version.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\ICM45686\inv_imu_version.h</FilePath>
             </File>
           </Files>
         </Group>

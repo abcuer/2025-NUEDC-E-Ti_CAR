@@ -62,20 +62,6 @@ void PID_select(void)
 		case TURN_90_PID:
 			turn_90_control(basespeed, bias);
 			break;
-		case ANGLE1_PID:
-			if(Yaw_update)
-			{
-				angle1_pid_control(angle_tar);
-				Yaw_update = 0;
-			}
-			break;
-		case ANGLE2_PID:
-			if(Yaw_update)
-			{
-				angleloop_pid_control(angle_tar, basespeed);
-				Yaw_update = 0;
-			}
-			break;
 		case TRACK1_PID:
 			track1_pid_control(0, basespeed);
 			break;
