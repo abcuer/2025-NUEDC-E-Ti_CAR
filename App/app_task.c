@@ -9,14 +9,14 @@ uint8_t turn_angle_flag = 0;
 uint8_t lap_flag = 0;
 uint8_t lap_count = 0;
 
-#define TURN_DISTANCE 1500
+#define TURN_DISTANCE 225
 
 void Task_1(void)
 {
 	switch(workstep)
 	{
 		case 0: 
-			pid_Init(&trackLine1, POSITION_PID, 155, 0, 40);  // 单级寻迹环
+			pid_Init(&trackLine1, POSITION_PID, 145, 0, 65);  // 单级寻迹环
 			lap_flag = 0;
 			lap_count = 0;
 			turn_angle_flag = 0;
@@ -42,7 +42,7 @@ void Task_1(void)
 				basespeed = 20;
 
 				// ✅ 距离判断是否完成90度转弯
-				if(fabs(carL_dis) >= TURN_DISTANCE || fabs(carR_dis) >= TURN_DISTANCE)
+				if(fabs(carR_dis) >= TURN_DISTANCE)
 				{
 					turn_flag = 0;
 					motor_stop();
@@ -71,7 +71,7 @@ void Task_1(void)
 				bias = 190;
 				basespeed = 20;
 
-				if(fabs(carL_dis) >= TURN_DISTANCE || fabs(carR_dis) >= TURN_DISTANCE)
+				if(fabs(carR_dis) >= TURN_DISTANCE)
 				{
 					turn_angle_flag = 0;
 					turn_flag = 0;

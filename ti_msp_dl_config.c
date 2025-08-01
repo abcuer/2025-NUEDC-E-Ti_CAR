@@ -267,9 +267,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_PWM_init(void) {
     DL_TimerG_initPWMMode(
         PWM_INST, (DL_TimerG_PWMConfig *) &gPWMConfig);
 
-    // Set Counter control to the smallest CC index being used
-    DL_TimerG_setCounterControl(PWM_INST,DL_TIMER_CZC_CCCTL0_ZCOND,DL_TIMER_CAC_CCCTL0_ACOND,DL_TIMER_CLC_CCCTL0_LCOND);
-
     DL_TimerG_setCaptureCompareOutCtl(PWM_INST, DL_TIMER_CC_OCTL_INIT_VAL_LOW,
 		DL_TIMER_CC_OCTL_INV_OUT_DISABLED, DL_TIMER_CC_OCTL_SRC_FUNCVAL,
 		DL_TIMERG_CAPTURE_COMPARE_0_INDEX);

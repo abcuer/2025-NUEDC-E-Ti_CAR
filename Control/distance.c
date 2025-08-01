@@ -10,13 +10,14 @@ float carR_dis = 0;
 void get_distance1(void)
 {
 	carR_dis = WHEEL_DIST*1000.0f * -Get_Encoder_countB;
-	carL_dis = WHEEL_DIST*1000.0f * Get_Encoder_countA;
+//	carL_dis = WHEEL_DIST*1000.0f * Get_Encoder_countA;
 }
 
 void clear_distance1(void)
 {
-	carL_dis = 0;
+//	carL_dis = 0;
 	carR_dis = 0;
+	Get_Encoder_countB = 0;
 }
 
 static int lastCountA = 0;

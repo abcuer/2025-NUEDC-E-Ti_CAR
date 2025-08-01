@@ -28,7 +28,7 @@ void Task_select(void)
 	}
 	
 	// Ö´ĞĞÈÎÎñ
-	if(start_flag == 1)
+	if(Task == 1)
 	{
 		if(first_flag == 1)
 		{
