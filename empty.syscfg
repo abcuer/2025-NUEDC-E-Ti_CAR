@@ -48,21 +48,27 @@ GPIO1.associatedPins[1].pin.$assign      = "PA27";
 
 const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
 
-GPIO2.port                               = "PORTA";
 GPIO2.$name                              = "KEY";
-GPIO2.associatedPins.create(2);
+GPIO2.associatedPins.create(3);
 GPIO2.associatedPins[0].direction        = "INPUT";
 GPIO2.associatedPins[0].$name            = "task";
 GPIO2.associatedPins[0].internalResistor = "PULL_UP";
 GPIO2.associatedPins[0].inputFilter      = "8_CYCLES";
 GPIO2.associatedPins[0].assignedPin      = "02";
+GPIO2.associatedPins[0].assignedPort     = "PORTA";
 GPIO2.associatedPins[0].pin.$assign      = "PA2";
 GPIO2.associatedPins[1].direction        = "INPUT";
 GPIO2.associatedPins[1].$name            = "start";
 GPIO2.associatedPins[1].internalResistor = "PULL_UP";
 GPIO2.associatedPins[1].inputFilter      = "8_CYCLES";
 GPIO2.associatedPins[1].assignedPin      = "31";
+GPIO2.associatedPins[1].assignedPort     = "PORTA";
 GPIO2.associatedPins[1].pin.$assign      = "PA31";
+GPIO2.associatedPins[2].$name            = "total";
+GPIO2.associatedPins[2].direction        = "INPUT";
+GPIO2.associatedPins[2].assignedPort     = "PORTB";
+GPIO2.associatedPins[2].assignedPin      = "09";
+GPIO2.associatedPins[2].pin.$assign      = "PB9";
 
 GPIO3.port                           = "PORTA";
 GPIO3.$name                          = "BUZZER";

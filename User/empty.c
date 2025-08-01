@@ -72,8 +72,7 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 	{
 		if(DL_TIMER_IIDX_LOAD)
 		{	
-//			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
-			if (Task == 2 && first_flag == 0)   capture_initial_yaw();
+			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
 		}
 	}

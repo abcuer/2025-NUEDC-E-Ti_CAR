@@ -5,5 +5,6 @@
 
 uint8_t Key_GetNum1(void);
 uint8_t Key_GetNum2(void);
+uint8_t Key_GetNum3(void);
 
 #endif

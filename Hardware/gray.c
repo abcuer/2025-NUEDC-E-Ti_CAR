@@ -59,9 +59,9 @@ void Get_Light_TTL(void)
 			if (lap_flag >= 5)   // 5¸ö¹Õ½Ç
 			{
 				lap_count++;    // È¦Êý+1
-				SoundLight();
 				lap_flag = 1;
 			}
 		}
+		SoundLight();
     }
 } 

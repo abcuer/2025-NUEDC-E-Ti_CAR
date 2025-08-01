@@ -9,9 +9,10 @@ void Task_select(void)
 {
 	uint8_t Key1 = Key_GetNum1();
 	uint8_t Key2 = Key_GetNum2();
+	uint8_t Key3 = Key_GetNum3();
 	
 	// 切换任务
-	if(Task >= 0)
+	if(start_flag == 0)
 	{
 		if (Key1 == 1) 
 		{
@@ -23,12 +24,16 @@ void Task_select(void)
 			LED_Blue_ON();
 			Task ++;
 		}
+		if(Key3 == 1)
+		{
+			start_flag = 1;
+		}
 		if (Task > 2) Task = 0; 
 		if(target_lap > 5) target_lap = 0;
 	}
 	
 	// 执行任务
-	if(Task == 2)
+	if(start_flag == 1)
 	{
 		if(first_flag == 1)
 		{

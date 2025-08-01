@@ -98,7 +98,6 @@ void Task_2(void)
 				motor_stop();          // 停止电机
 				params_clear();        // 清除 PID 状态等
 				clear_distance1();
-				//LED_Blue_ON();         // 指示任务完成
 				break;                 // 不再执行后续逻辑
 			}
 

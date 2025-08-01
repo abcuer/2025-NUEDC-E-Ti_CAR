@@ -153,15 +153,18 @@ extern "C" {
 /* Defines for Green: GPIOA.27 with pinCMx 60 on package pin 31 */
 #define LED_Green_PIN                                           (DL_GPIO_PIN_27)
 #define LED_Green_IOMUX                                          (IOMUX_PINCM60)
-/* Port definition for Pin Group KEY */
-#define KEY_PORT                                                         (GPIOA)
-
 /* Defines for task: GPIOA.2 with pinCMx 7 on package pin 42 */
+#define KEY_task_PORT                                                    (GPIOA)
 #define KEY_task_PIN                                             (DL_GPIO_PIN_2)
 #define KEY_task_IOMUX                                            (IOMUX_PINCM7)
 /* Defines for start: GPIOA.31 with pinCMx 6 on package pin 39 */
+#define KEY_start_PORT                                                   (GPIOA)
 #define KEY_start_PIN                                           (DL_GPIO_PIN_31)
 #define KEY_start_IOMUX                                           (IOMUX_PINCM6)
+/* Defines for total: GPIOB.9 with pinCMx 26 on package pin 61 */
+#define KEY_total_PORT                                                   (GPIOB)
+#define KEY_total_PIN                                            (DL_GPIO_PIN_9)
+#define KEY_total_IOMUX                                          (IOMUX_PINCM26)
 /* Port definition for Pin Group Motor_left */
 #define Motor_left_PORT                                                  (GPIOB)
 
