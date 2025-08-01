@@ -45,7 +45,6 @@ int main(void)
 	timer1_init();
 	
 	pid_Init(&trackLine1, POSITION_PID, 145, 0, 65);  // 单级寻迹环
-	pid_Init(&trackLine2, POSITION_PID, 6, 0, 30);  // 串级寻迹环
 
 	while(1) 
 	{   
@@ -74,7 +73,7 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 		if(DL_TIMER_IIDX_LOAD)
 		{	
 //			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
-			if (Task == 1 && first_flag == 0)   capture_initial_yaw();
+			if (Task == 2 && first_flag == 0)   capture_initial_yaw();
 			UpdateSoundLight();
 		}
 	}

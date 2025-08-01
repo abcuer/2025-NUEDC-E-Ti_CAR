@@ -11,7 +11,7 @@ void Task_select(void)
 	uint8_t Key2 = Key_GetNum2();
 	
 	// 切换任务
-	if(Task == 0)
+	if(Task >= 0)
 	{
 		if (Key1 == 1) 
 		{
@@ -21,14 +21,14 @@ void Task_select(void)
 		if(Key2 == 1)
 		{
 			LED_Blue_ON();
-			Task = 1;
+			Task ++;
 		}
 		if (Task > 2) Task = 0; 
 		if(target_lap > 5) target_lap = 0;
 	}
 	
 	// 执行任务
-	if(Task == 1)
+	if(Task == 2)
 	{
 		if(first_flag == 1)
 		{
@@ -60,6 +60,7 @@ void SoundLight(void)
 	{
 		Buzzer_ON();
 		LED_Blue_ON();
+		LED_Green_ON();
 		SoundLight_flag = 1;
 	}
 }
@@ -74,6 +75,7 @@ void UpdateSoundLight(void)
 		{
 			Buzzer_OFF();
 			LED_Blue_OFF();
+			LED_Green_OFF();
 			SoundLight_time = 0;
 			SoundLight_flag = 0; 
 		}
@@ -81,7 +83,6 @@ void UpdateSoundLight(void)
     }
 }
 
-extern int32_t turn_time;
 extern uint8_t turn_flag;
 
 void params_clear(void)
@@ -90,7 +91,6 @@ void params_clear(void)
 	lap_flag = 0;
     lap_count = 0;
     turn_angle_flag = 0;
-    turn_time = 0;
 	turn_flag = 0;
     pid_flag = 0;
     basespeed = 0;
