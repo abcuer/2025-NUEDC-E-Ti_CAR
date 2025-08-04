@@ -6,7 +6,7 @@ uint8_t turn_angle_flag = 0;
 uint8_t lap_flag = 0;
 uint8_t lap_count = 0;
 
-#define TURN_DISTANCE 225
+#define TURN_DISTANCE 228
 
 void Task_1(void)
 {
@@ -88,7 +88,7 @@ void Task_2(void)
 			lap_count = 0;
 			turn_angle_flag = 0;
 			pid_flag = 0;
-			basespeed = 280;
+			basespeed = 245;
 			workstep++;
 			break;
 
