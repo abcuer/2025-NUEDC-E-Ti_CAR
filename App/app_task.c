@@ -88,7 +88,7 @@ void Task_2(void)
 			lap_count = 0;
 			turn_angle_flag = 0;
 			pid_flag = 0;
-			basespeed = 245;
+			basespeed = 250;
 			workstep++;
 			break;
 
