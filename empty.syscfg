@@ -68,6 +68,7 @@ GPIO2.associatedPins[2].$name            = "total";
 GPIO2.associatedPins[2].direction        = "INPUT";
 GPIO2.associatedPins[2].assignedPort     = "PORTB";
 GPIO2.associatedPins[2].assignedPin      = "09";
+GPIO2.associatedPins[2].internalResistor = "PULL_UP";
 GPIO2.associatedPins[2].pin.$assign      = "PB9";
 
 GPIO3.port                           = "PORTA";

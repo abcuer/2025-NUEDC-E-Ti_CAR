@@ -51,7 +51,7 @@ void capture_initial_yaw(void)
 		LED_Blue_ON();
 		delay_ms(50);
 		LED_Blue_OFF();
-		delay_ms(50);
+		delay_ms(50); 
 		LED_Green_ON();
 		delay_ms(100);
 		first_flag = 1;

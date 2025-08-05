@@ -1,5 +1,4 @@
 #include "key.h"
-uint8_t KeyNum=0;
 
 uint8_t Key_GetNum1(void)
 {
