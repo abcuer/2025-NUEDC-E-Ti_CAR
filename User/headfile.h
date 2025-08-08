@@ -13,6 +13,7 @@
 /******************* BSP **********************/
 #include "board.h"
 #include "timer.h"
+#include "ADC.h"
 /***************** Hardware *******************/
 #include "key.h"
 #include "led.h"
@@ -21,6 +22,7 @@
 #include "encoder.h"
 #include "gray.h"
 #include "hc05.h"
+#include "No_Mcu_Ganv_Grayscale_Sensor_Config.h"
 /***************** Control *******************/
 #include "pid.h"
 #include "speed.h"
@@ -37,6 +39,14 @@
 
 /******** IMU *********/
 extern uint32_t nowtime;
+/******** Gray *********/
+extern unsigned short Anolog[8];
+extern unsigned short white[8];
+extern unsigned short black[8];
+extern unsigned short Normal[8];
+
+extern No_MCU_Sensor sensor;
+extern unsigned char Digtal;
 
 /** Speed **/
 extern float speedA;

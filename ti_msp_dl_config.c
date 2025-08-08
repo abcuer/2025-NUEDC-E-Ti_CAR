@@ -57,6 +57,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     SYSCFG_DL_TIMER_0_init();
     SYSCFG_DL_TIMER_1_init();
     SYSCFG_DL_UART_0_init();
+    SYSCFG_DL_ADC1_init();
     SYSCFG_DL_SYSTICK_init();
     /* Ensure backup structures have no valid state */
 	gPWMBackup.backupRdy 	= false;
@@ -97,6 +98,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_TimerA_reset(TIMER_0_INST);
     DL_TimerG_reset(TIMER_1_INST);
     DL_UART_Main_reset(UART_0_INST);
+    DL_ADC12_reset(ADC1_INST);
 
 
     DL_GPIO_enablePower(GPIOA);
@@ -105,6 +107,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_TimerA_enablePower(TIMER_0_INST);
     DL_TimerG_enablePower(TIMER_1_INST);
     DL_UART_Main_enablePower(UART_0_INST);
+    DL_ADC12_enablePower(ADC1_INST);
 
     delay_cycles(POWER_STARTUP_DELAY);
 }
@@ -123,10 +126,6 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
         GPIO_UART_0_IOMUX_RX, GPIO_UART_0_IOMUX_RX_FUNC);
 
     DL_GPIO_initDigitalOutput(BUZZER_Buzzer_IOMUX);
-
-    DL_GPIO_initDigitalInputFeatures(Gray_IOB_R3_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
     DL_GPIO_initDigitalOutputFeatures(LED_Blue_IOMUX,
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_PULL_DOWN,
@@ -170,36 +169,22 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
 		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
 
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_L3_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
+    DL_GPIO_initDigitalOutput(Gray_Address_PIN_0_IOMUX);
 
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_L2_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
+    DL_GPIO_initDigitalOutput(Gray_Address_PIN_1_IOMUX);
 
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_L1_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
-
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_M_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
-
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_R1_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
-
-    DL_GPIO_initDigitalInputFeatures(Gray_IOA_R2_IOMUX,
-		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_NONE,
-		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
+    DL_GPIO_initDigitalOutput(Gray_Address_PIN_2_IOMUX);
 
     DL_GPIO_clearPins(GPIOA, LED_Blue_PIN |
-		LED_Green_PIN);
+		LED_Green_PIN |
+		Gray_Address_PIN_1_PIN |
+		Gray_Address_PIN_2_PIN);
     DL_GPIO_setPins(GPIOA, BUZZER_Buzzer_PIN);
     DL_GPIO_enableOutput(GPIOA, BUZZER_Buzzer_PIN |
 		LED_Blue_PIN |
-		LED_Green_PIN);
+		LED_Green_PIN |
+		Gray_Address_PIN_1_PIN |
+		Gray_Address_PIN_2_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOA, DL_GPIO_PIN_9_EDGE_RISE |
 		DL_GPIO_PIN_8_EDGE_RISE);
     DL_GPIO_setLowerPinsInputFilter(GPIOA, DL_GPIO_PIN_2_INPUT_FILTER_8_CYCLES);
@@ -208,6 +193,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		Encoder_left_E1B_PIN);
     DL_GPIO_enableInterrupt(GPIOA, Encoder_left_E1A_PIN |
 		Encoder_left_E1B_PIN);
+    DL_GPIO_clearPins(GPIOB, Gray_Address_PIN_0_PIN);
     DL_GPIO_setPins(GPIOB, Motor_left_AIN1_PIN |
 		Motor_left_AIN2_PIN |
 		Motor_right_BIN1_PIN |
@@ -215,7 +201,8 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_enableOutput(GPIOB, Motor_left_AIN1_PIN |
 		Motor_left_AIN2_PIN |
 		Motor_right_BIN1_PIN |
-		Motor_right_BIN2_PIN);
+		Motor_right_BIN2_PIN |
+		Gray_Address_PIN_0_PIN);
     DL_GPIO_setLowerPinsPolarity(GPIOB, DL_GPIO_PIN_7_EDGE_RISE |
 		DL_GPIO_PIN_6_EDGE_RISE);
     DL_GPIO_clearInterruptStatus(GPIOB, Encoder_right_E2A_PIN |
@@ -411,6 +398,25 @@ SYSCONFIG_WEAK void SYSCFG_DL_UART_0_init(void)
 
 
     DL_UART_Main_enable(UART_0_INST);
+}
+
+/* ADC1 Initialization */
+static const DL_ADC12_ClockConfig gADC1ClockConfig = {
+    .clockSel       = DL_ADC12_CLOCK_SYSOSC,
+    .divideRatio    = DL_ADC12_CLOCK_DIVIDE_8,
+    .freqRange      = DL_ADC12_CLOCK_FREQ_RANGE_24_TO_32,
+};
+SYSCONFIG_WEAK void SYSCFG_DL_ADC1_init(void)
+{
+    DL_ADC12_setClockConfig(ADC1_INST, (DL_ADC12_ClockConfig *) &gADC1ClockConfig);
+    DL_ADC12_initSingleSample(ADC1_INST,
+        DL_ADC12_REPEAT_MODE_ENABLED, DL_ADC12_SAMPLING_SOURCE_AUTO, DL_ADC12_TRIG_SRC_SOFTWARE,
+        DL_ADC12_SAMP_CONV_RES_12_BIT, DL_ADC12_SAMP_CONV_DATA_FORMAT_UNSIGNED);
+    DL_ADC12_configConversionMem(ADC1_INST, ADC1_ADCMEM_ADC_Channel0,
+        DL_ADC12_INPUT_CHAN_0, DL_ADC12_REFERENCE_VOLTAGE_VDDA, DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0, DL_ADC12_AVERAGING_MODE_DISABLED,
+        DL_ADC12_BURN_OUT_SOURCE_DISABLED, DL_ADC12_TRIGGER_MODE_AUTO_NEXT, DL_ADC12_WINDOWS_COMP_MODE_DISABLED);
+    DL_ADC12_setPowerDownMode(ADC1_INST,DL_ADC12_POWER_DOWN_MODE_MANUAL);
+    DL_ADC12_enableConversions(ADC1_INST);
 }
 
 SYSCONFIG_WEAK void SYSCFG_DL_SYSTICK_init(void)

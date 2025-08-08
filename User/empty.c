@@ -43,11 +43,13 @@ int main(void)
 	encoder_Init();
 	timer0_init();
 	timer1_init();
+	No_MCU_Ganv_Sensor_Init(&sensor,white,black);
 	
 	pid_Init(&trackLine1, POSITION_PID, 145, 0, 65);  // 单级寻迹环
 
 	while(1) 
 	{   
+//		Sensor_Calibration(&sensor);
 		Task_select();
 	}
 }

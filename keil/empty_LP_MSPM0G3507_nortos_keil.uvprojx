@@ -404,6 +404,16 @@
               <FileType>5</FileType>
               <FilePath>..\Bsp\timer.h</FilePath>
             </File>
+            <File>
+              <FileName>ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>ADC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\ADC.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -478,6 +488,16 @@
               <FileName>hc05.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Hardware\hc05.h</FilePath>
+            </File>
+            <File>
+              <FileName>No_Mcu_Ganv_Grayscale_Sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\No_Mcu_Ganv_Grayscale_Sensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>No_Mcu_Ganv_Grayscale_Sensor_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\No_Mcu_Ganv_Grayscale_Sensor_Config.h</FilePath>
             </File>
           </Files>
         </Group>
