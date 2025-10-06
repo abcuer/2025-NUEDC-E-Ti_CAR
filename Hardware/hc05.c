@@ -13,6 +13,7 @@ void HC05_Init(void)
 #define TAIL2   0x0A
 #define MAX_FRAME_LEN 256
 
+
 /*  AA 55 01 00 01 0D 0A  */
 typedef enum {
     WAIT_HEADER1,
