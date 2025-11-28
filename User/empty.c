@@ -39,7 +39,7 @@ float basespeed = 0;
 int main(void)
 {
 	board_init(); // 延迟 串口
-//	HC05_Init();
+//	minpc_init();
 	encoder_Init();
 	timer0_init();
 	timer1_init();

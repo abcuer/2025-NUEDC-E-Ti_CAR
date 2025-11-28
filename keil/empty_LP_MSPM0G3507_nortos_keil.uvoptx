@@ -698,8 +698,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Hardware\hc05.c</PathWithFileName>
-      <FilenameWithoutPath>hc05.c</FilenameWithoutPath>
+      <PathWithFileName>..\Hardware\minpc.c</PathWithFileName>
+      <FilenameWithoutPath>minpc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -710,8 +710,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Hardware\hc05.h</PathWithFileName>
-      <FilenameWithoutPath>hc05.h</FilenameWithoutPath>
+      <PathWithFileName>..\Hardware\minpc.h</PathWithFileName>
+      <FilenameWithoutPath>minpc.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

@@ -20,7 +20,7 @@
 #include "motor.h"
 #include "encoder.h"
 #include "gray.h"
-#include "hc05.h"
+#include "minpc.h"
 /***************** Control *******************/
 #include "pid.h"
 #include "speed.h"

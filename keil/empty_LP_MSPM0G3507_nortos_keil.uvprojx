@@ -470,14 +470,14 @@
               <FilePath>..\Hardware\gray.h</FilePath>
             </File>
             <File>
-              <FileName>hc05.c</FileName>
+              <FileName>minpc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\hc05.c</FilePath>
+              <FilePath>..\Hardware\minpc.c</FilePath>
             </File>
             <File>
-              <FileName>hc05.h</FileName>
+              <FileName>minpc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\hc05.h</FilePath>
+              <FilePath>..\Hardware\minpc.h</FilePath>
             </File>
           </Files>
         </Group>
