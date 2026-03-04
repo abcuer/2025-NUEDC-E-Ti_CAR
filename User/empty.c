@@ -31,24 +31,13 @@
  */
 #include "headfile.h"
 
-uint8_t Task = 0;
-uint8_t start_flag = 0;
-uint8_t first_flag = 0;
-float basespeed = 0;
-
 int main(void)
 {
-	board_init(); // 延迟 串口
-//	minpc_init();
-	encoder_Init();
-	timer0_init();
-	timer1_init();
+	System_Init();
 	
-	pid_Init(&trackLine1, POSITION_PID, 145, 0, 65);  // 单级寻迹环
-
 	while(1) 
 	{   
-		Task_select();
+		TaskSelect();
 	}
 }
 
@@ -60,8 +49,8 @@ void TIMER_0_INST_IRQHandler(void)   //PID运算  10ms  优先级最高
 	{
 		if(DL_TIMER_IIDX_ZERO) 
 		{	
-			speed_cal(0.2); 
-			PID_select();
+			GetSpeed(0.2); 
+			PID_Select();
 		}
 	}
 } 
@@ -72,8 +61,8 @@ void TIMER_1_INST_IRQHandler(void)	// 声光检测  10ms  优先级高
 	{
 		if(DL_TIMER_IIDX_LOAD)
 		{	
-			if (start_flag == 1 && first_flag == 0)   capture_initial_yaw();
-			UpdateSoundLight();
+			if (total_start_flag == 1 && wait_flag == 0) 	Wait_For_A_While();
+			SoundLightUpdate();
 		}
 	}
 }

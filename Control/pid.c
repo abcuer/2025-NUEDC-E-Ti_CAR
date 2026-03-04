@@ -1,14 +1,16 @@
 #include "pid.h"
+#include "speed.h"
+#include "track.h"
 
-void pid_Init(pid_t *pid, uint32_t mode, float p, float i, float d)
+void PID_Update(PID_Struct *pid, uint32_t mode, float p, float i, float d)
 {
-	pid->pid_mode = mode;
+	pid->mode = mode;
 	pid->p = p;
 	pid->i = i;
 	pid->d = d;
 }
 
-void pid_clear(pid_t *pid)
+void PID_Reset(PID_Struct *pid)
 {
     pid->error[0] = 0;
     pid->error[1] = 0;
@@ -21,18 +23,18 @@ void pid_clear(pid_t *pid)
     pid->target = 0;
 }
 
-void pid_cal(pid_t *pid)
+void PID_Calculate(PID_Struct *pid)
 {
 	pid->error[0] = pid->target - pid->now;
 
-	if(pid->pid_mode == DELTA_PID)  
+	if(pid->mode == DELTA_PID)  
 	{
 		pid->pout = pid->p * (pid->error[0] - pid->error[1]);
 		pid->iout = pid->i * pid->error[0];
 		pid->dout = pid->d * (pid->error[0] - 2 * pid->error[1] + pid->error[2]);
 		pid->out += pid->pout + pid->iout + pid->dout;
 	}
-	else if(pid->pid_mode == POSITION_PID)  
+	else if(pid->mode == POSITION_PID)  
 	{
 		pid->pout = pid->p * pid->error[0];
 		pid->iout = pid->i * pid->error[0];
@@ -44,29 +46,26 @@ void pid_cal(pid_t *pid)
 	pid->error[1] = pid->error[0];
 }
 
-void pidout_limit(pid_t *pid, float duty)
+void PID_OutPutLimit(PID_Struct *pid, float duty)
 {
 	if(pid->out >= duty)	pid->out = duty;
-	if(pid->out <= -duty) pid->out = -duty;
+	if(pid->out <= -duty) 	pid->out = -duty;
 }
 
 uint8_t pid_flag = 0;
-int speed_tar = 0;
-int angle_tar = 0;
-uint8_t Yaw_update = 0;
 
-void PID_select(void)
+void PID_Select(void)
 {
 	switch(pid_flag)
 	{
 		case TURN_90_PID:
 			turn_90_control(basespeed, bias);
 			break;
-		case TRACK1_PID:
-			track1_pid_control(0, basespeed);
+		case TRACK_PID:
+			TrackPidCtrl(basespeed);
 			break;
-		case TRACK2_PID:
-			trackloop_pid_control(0, basespeed);
+		case TRACKLOOP_PID:
+			TrackCascadeCtrl(0, basespeed);
 			break;
 		default:
 			break;

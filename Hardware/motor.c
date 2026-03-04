@@ -10,9 +10,9 @@
 uint8_t motor_left_dir = 1;
 uint8_t motor_right_dir = 1;
 
-void Motor_left_duty(uint8_t dir, uint32_t speed)
+void Motor_LeftDuty(uint8_t dir, uint32_t speed)
 {
-    if( dir == 1 )
+    if(dir)
     {
         AIN1_OUT(1);
         AIN2_OUT(0);
@@ -26,9 +26,9 @@ void Motor_left_duty(uint8_t dir, uint32_t speed)
     DL_TimerG_setCaptureCompareValue(PWM_INST,speed ,GPIO_PWM_C0_IDX);
 }
 
-void Motor_right_duty(uint8_t dir, uint32_t speed)
+void Motor_RightDuty(uint8_t dir, uint32_t speed)
 {
-    if( dir == 1 )
+    if(dir)
     {
         BIN1_OUT(1);
         BIN2_OUT(0);
@@ -42,9 +42,9 @@ void Motor_right_duty(uint8_t dir, uint32_t speed)
     DL_TimerG_setCaptureCompareValue(PWM_INST,speed + offset,GPIO_PWM_C1_IDX);
 }
 
-void Motor_left_Control(float speed)
+void Motor_LeftCtrl(float speed)
 {
-    if( motor_left_dir == 1 )
+    if(motor_left_dir)
     {
         AIN1_OUT(1);
         AIN2_OUT(0);
@@ -58,9 +58,9 @@ void Motor_left_Control(float speed)
     DL_TimerG_setCaptureCompareValue(PWM_INST,(uint32_t)speed + offset, GPIO_PWM_C0_IDX);
 }
 
-void Motor_right_Control(float speed)
+void Motor_RightCtrl(float speed)
 {
-    if( motor_right_dir == 1 )
+    if(motor_right_dir)
     {
         BIN1_OUT(1);
         BIN2_OUT(0);
@@ -74,12 +74,11 @@ void Motor_right_Control(float speed)
     DL_TimerG_setCaptureCompareValue(PWM_INST,(uint32_t)speed + offset,GPIO_PWM_C1_IDX);
 }
 
-void motor_stop(void)
+void Motor_Stop(void)
 {
 	AIN1_OUT(1);
     AIN2_OUT(1);
 	
 	BIN1_OUT(1);
     BIN2_OUT(1);
-	
 }

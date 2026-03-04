@@ -1,12 +1,21 @@
-#ifndef __PID_h_
-#define __PID_h_
-#include "headfile.h"
+#ifndef __PID_H
+#define __PID_H
+
+#include "stdint.h"
+#include "task.h"
 
 enum
 {
   POSITION_PID = 0, 
   DELTA_PID,         
 };
+
+typedef enum
+{
+	TURN_90_PID = 0,
+	TRACK_PID,
+	TRACKLOOP_PID 
+}PidSet_e;
 
 typedef struct
 {
@@ -17,22 +26,17 @@ typedef struct
 	float pout, dout, iout;
 	float out;   
 	
-	uint32_t pid_mode;
+	uint32_t mode;
 
-}pid_t;
+}PID_Struct;
 
-extern pid_t angle1;        /** 单级角度环 **/
-extern pid_t angle2;		/** 串级角度环 **/
-extern pid_t trackLine1;	/** 单级寻迹环 **/
-extern pid_t trackLine2;	/** 串级寻迹环 **/
-extern pid_t dist1;			/** 单级位移环 **/
-extern pid_t dist2;			/** 串级位移环 **/
-extern pid_t encoder_to_ang;	/** 编码器数值角度环 **/
+void PID_Update(PID_Struct *pid, uint32_t mode, float p, float i, float d);
+void PID_Reset(PID_Struct *pid);
+void PID_Calculate(PID_Struct *pid);
+void PID_OutPutLimit(PID_Struct *pid, float duty);
 
-void pid_Init(pid_t *pid, uint32_t mode, float p, float i, float d);
-void pid_clear(pid_t *pid);
-void pid_cal(pid_t *pid);
-void pidout_limit(pid_t *pid, float duty);
-void PID_select(void);
+void PID_Select(void);
+
+extern uint8_t pid_flag;
 
 #endif

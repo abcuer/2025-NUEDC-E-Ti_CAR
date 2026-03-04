@@ -1,9 +1,8 @@
-#ifndef _timer_h
-#define _timer_h
+#ifndef __TIMER_H
+#define __TIMER_H
 
 #include "ti_msp_dl_config.h"
-#include "board.h"
 
-void timer0_init(void);
-void timer1_init(void);
+void TimerDeviceInit(void);
+
 #endif

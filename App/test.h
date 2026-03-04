@@ -1,5 +1,5 @@
-#ifndef _test_h
-#define _test_h
+#ifndef __TEST_H
+#define __TEST_H
 
 void test(void);
 

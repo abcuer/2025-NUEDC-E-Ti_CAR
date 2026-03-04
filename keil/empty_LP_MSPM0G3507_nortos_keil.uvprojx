@@ -382,18 +382,53 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Bsp</GroupName>
+          <GroupName>App</GroupName>
           <Files>
             <File>
-              <FileName>board.c</FileName>
+              <FileName>task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\board.c</FilePath>
+              <FilePath>..\App\task.c</FilePath>
             </File>
             <File>
-              <FileName>board.h</FileName>
+              <FileName>task.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Bsp\board.h</FilePath>
+              <FilePath>..\App\task.h</FilePath>
             </File>
+            <File>
+              <FileName>soundlight.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\soundlight.c</FilePath>
+            </File>
+            <File>
+              <FileName>soundlight.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\soundlight.h</FilePath>
+            </File>
+            <File>
+              <FileName>utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>utils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\test.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp</GroupName>
+          <Files>
             <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
@@ -404,21 +439,31 @@
               <FileType>5</FileType>
               <FilePath>..\Bsp\timer.h</FilePath>
             </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Bsp\delay.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Hardware</GroupName>
           <Files>
-            <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>key.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Hardware\key.h</FilePath>
-            </File>
             <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
@@ -430,14 +475,24 @@
               <FilePath>..\Hardware\led.h</FilePath>
             </File>
             <File>
-              <FileName>buzzer.c</FileName>
+              <FileName>beep.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\buzzer.c</FilePath>
+              <FilePath>..\Hardware\beep.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer.h</FileName>
+              <FileName>beep.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\buzzer.h</FilePath>
+              <FilePath>..\Hardware\beep.h</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardware\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardware\key.h</FilePath>
             </File>
             <File>
               <FileName>motor.c</FileName>
@@ -470,14 +525,14 @@
               <FilePath>..\Hardware\gray.h</FilePath>
             </File>
             <File>
-              <FileName>minpc.c</FileName>
+              <FileName>minipc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Hardware\minpc.c</FilePath>
+              <FilePath>..\Hardware\minipc.c</FilePath>
             </File>
             <File>
-              <FileName>minpc.h</FileName>
+              <FileName>minipc.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Hardware\minpc.h</FilePath>
+              <FilePath>..\Hardware\minipc.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -485,14 +540,14 @@
           <GroupName>Control</GroupName>
           <Files>
             <File>
-              <FileName>pid.c</FileName>
+              <FileName>track.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Control\pid.c</FilePath>
+              <FilePath>..\Control\track.c</FilePath>
             </File>
             <File>
-              <FileName>pid.h</FileName>
+              <FileName>track.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Control\pid.h</FilePath>
+              <FilePath>..\Control\track.h</FilePath>
             </File>
             <File>
               <FileName>speed.c</FileName>
@@ -505,59 +560,24 @@
               <FilePath>..\Control\speed.h</FilePath>
             </File>
             <File>
-              <FileName>gray_track.c</FileName>
+              <FileName>dist.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Control\gray_track.c</FilePath>
+              <FilePath>..\Control\dist.c</FilePath>
             </File>
             <File>
-              <FileName>gray_track.h</FileName>
+              <FileName>dist.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Control\gray_track.h</FilePath>
+              <FilePath>..\Control\dist.h</FilePath>
             </File>
             <File>
-              <FileName>distance.c</FileName>
+              <FileName>pid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Control\distance.c</FilePath>
+              <FilePath>..\Control\pid.c</FilePath>
             </File>
             <File>
-              <FileName>distance.h</FileName>
+              <FileName>pid.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Control\distance.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>App</GroupName>
-          <Files>
-            <File>
-              <FileName>app_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\App\app_task.c</FilePath>
-            </File>
-            <File>
-              <FileName>app_task.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\App\app_task.h</FilePath>
-            </File>
-            <File>
-              <FileName>app_utils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\App\app_utils.c</FilePath>
-            </File>
-            <File>
-              <FileName>app_utils.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\App\app_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\App\test.c</FilePath>
-            </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\App\test.h</FilePath>
+              <FilePath>..\Control\pid.h</FilePath>
             </File>
           </Files>
         </Group>

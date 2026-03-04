@@ -4,7 +4,7 @@
 //void test(void)
 //{
 //	pid_flag = SPEED_PID;
-//	speed_tar = 50;     // 比赛用的速度不需要太快
+//	tar = 50;     // 比赛用的速度不需要太快
 //}
 
 /************************ 单级角度环调参 ***************************/
@@ -81,7 +81,7 @@
 /************************ 速度环调参 ***************************/
 //void test()
 //{
-//	speed_tar = 30;
+//	tar = 30;
 //	pid_flag = SPEED_PID;
 //}
 
@@ -90,7 +90,7 @@
 //{
 //	basespeed = 250;
 //	pid_flag = TRACK_MIDDLELINE;
-////	printf("%.2f, %.2f\r\n", speedA, -speedB);
+////	printf("%.2f, %.2f\r\n", left_speed, -right_speed);
 //}
 
 
@@ -116,8 +116,8 @@ void test(void)
 /*   PID定时器选择性测试
 void test(void)
 {
-	printf("%.2f, %.2f, %.2f\r\n", speedA, speedB, Yaw);
-	speed_tar = 30;
+	printf("%.2f, %.2f, %.2f\r\n", left_speed, right_speed, Yaw);
+	tar = 30;
 	pid_flag = SPEED_PID;
 }
 */

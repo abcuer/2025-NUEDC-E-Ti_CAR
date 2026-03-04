@@ -11,65 +11,26 @@
 #include "stdint.h"
 #include "stdlib.h"
 /******************* BSP **********************/
-#include "board.h"
+#include "delay.h"
 #include "timer.h"
+#include "uart.h"
 /***************** Hardware *******************/
-#include "key.h"
 #include "led.h"
-#include "buzzer.h"
+#include "key.h"
+#include "beep.h"
 #include "motor.h"
 #include "encoder.h"
 #include "gray.h"
-#include "minpc.h"
+#include "minipc.h"
 /***************** Control *******************/
-#include "pid.h"
 #include "speed.h"
-#include "distance.h" 
-#include "gray_track.h"
+#include "dist.h" 
+#include "track.h"
+#include "pid.h"
 /***************** App ***********************/
-#include "app_utils.h"
-#include "app_task.h"
-#include "test.h"
+#include "task.h"
+#include "soundlight.h"
+#include "utils.h"
 
-#define TURN_90_PID 	1
-#define TRACK1_PID 		2
-#define TRACK2_PID 		3
-
-/******** IMU *********/
-extern uint32_t nowtime;
-
-/** Speed **/
-extern float speedA;
-extern float speedB;
-extern uint8_t motor_left_dir;
-extern uint8_t motor_right_dir;
-extern uint16_t bias;
-
-/******** pid ********/
-extern uint8_t pid_flag;
-extern int speed_tar;
-extern int angle_tar;
-
-/******** angle ********/
-
-/******** distance ********/
-extern int Get_Encoder_countA;
-extern int Get_Encoder_countB;
-extern float carL_dis;
-extern float carR_dis;
-
-/******** Task ********/
-extern uint8_t Task;
-extern float basespeed;
-extern uint8_t first_flag;
-extern uint8_t start_flag;
-extern int16_t baisetime;
-extern uint8_t workstep;
-
-extern uint8_t turn_angle_flag;
-extern uint8_t lap_flag;
-extern uint8_t target_lap;
-extern int16_t Line_flag;
-extern uint8_t lap_count;
 
 #endif

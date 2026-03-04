@@ -132,12 +132,12 @@ extern "C" {
 
 
 
-/* Port definition for Pin Group BUZZER */
-#define BUZZER_PORT                                                      (GPIOA)
+/* Port definition for Pin Group BEEP */
+#define BEEP_PORT                                                        (GPIOA)
 
-/* Defines for Buzzer: GPIOA.23 with pinCMx 53 on package pin 24 */
-#define BUZZER_Buzzer_PIN                                       (DL_GPIO_PIN_23)
-#define BUZZER_Buzzer_IOMUX                                      (IOMUX_PINCM53)
+/* Defines for ONE: GPIOA.23 with pinCMx 53 on package pin 24 */
+#define BEEP_ONE_PIN                                            (DL_GPIO_PIN_23)
+#define BEEP_ONE_IOMUX                                           (IOMUX_PINCM53)
 /* Port definition for Pin Group Gray_IOB */
 #define Gray_IOB_PORT                                                    (GPIOB)
 
@@ -147,24 +147,24 @@ extern "C" {
 /* Port definition for Pin Group LED */
 #define LED_PORT                                                         (GPIOA)
 
-/* Defines for Blue: GPIOA.26 with pinCMx 59 on package pin 30 */
-#define LED_Blue_PIN                                            (DL_GPIO_PIN_26)
-#define LED_Blue_IOMUX                                           (IOMUX_PINCM59)
-/* Defines for Green: GPIOA.27 with pinCMx 60 on package pin 31 */
-#define LED_Green_PIN                                           (DL_GPIO_PIN_27)
-#define LED_Green_IOMUX                                          (IOMUX_PINCM60)
-/* Defines for task: GPIOA.2 with pinCMx 7 on package pin 42 */
-#define KEY_task_PORT                                                    (GPIOA)
-#define KEY_task_PIN                                             (DL_GPIO_PIN_2)
-#define KEY_task_IOMUX                                            (IOMUX_PINCM7)
-/* Defines for start: GPIOA.31 with pinCMx 6 on package pin 39 */
-#define KEY_start_PORT                                                   (GPIOA)
-#define KEY_start_PIN                                           (DL_GPIO_PIN_31)
-#define KEY_start_IOMUX                                           (IOMUX_PINCM6)
-/* Defines for total: GPIOB.9 with pinCMx 26 on package pin 61 */
-#define KEY_total_PORT                                                   (GPIOB)
-#define KEY_total_PIN                                            (DL_GPIO_PIN_9)
-#define KEY_total_IOMUX                                          (IOMUX_PINCM26)
+/* Defines for BLUE: GPIOA.26 with pinCMx 59 on package pin 30 */
+#define LED_BLUE_PIN                                            (DL_GPIO_PIN_26)
+#define LED_BLUE_IOMUX                                           (IOMUX_PINCM59)
+/* Defines for GREEN: GPIOA.27 with pinCMx 60 on package pin 31 */
+#define LED_GREEN_PIN                                           (DL_GPIO_PIN_27)
+#define LED_GREEN_IOMUX                                          (IOMUX_PINCM60)
+/* Defines for LapNum: GPIOA.2 with pinCMx 7 on package pin 42 */
+#define KEY_LapNum_PORT                                                  (GPIOA)
+#define KEY_LapNum_PIN                                           (DL_GPIO_PIN_2)
+#define KEY_LapNum_IOMUX                                          (IOMUX_PINCM7)
+/* Defines for TaskNum: GPIOA.31 with pinCMx 6 on package pin 39 */
+#define KEY_TaskNum_PORT                                                 (GPIOA)
+#define KEY_TaskNum_PIN                                         (DL_GPIO_PIN_31)
+#define KEY_TaskNum_IOMUX                                         (IOMUX_PINCM6)
+/* Defines for TotalStart: GPIOB.9 with pinCMx 26 on package pin 61 */
+#define KEY_TotalStart_PORT                                              (GPIOB)
+#define KEY_TotalStart_PIN                                       (DL_GPIO_PIN_9)
+#define KEY_TotalStart_IOMUX                                     (IOMUX_PINCM26)
 /* Port definition for Pin Group Motor_left */
 #define Motor_left_PORT                                                  (GPIOB)
 

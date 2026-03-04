@@ -1,92 +1,81 @@
 #include "headfile.h"
 
-uint16_t bias = 0;
-#define PWM_Limit 1220
+float left_speed = 0;
+float right_speed = 0;
 
-float VelcityA_Ki = 7.7, VelcityA_Kp = 0.0;
-float VelcityB_Ki = 7.5, VelcityB_Kp = 0.0;
-
-float speedA = 0;
-float speedB = 0;
-
-void speed_cal(float filter_alpha)
+SPEED_PID_Struct left_speed_pid = 
 {
-    static int32_t last_countA = 0;
-    static int32_t last_countB = 0;
-    int32_t nowA = Get_Encoder_countA;
-    int32_t nowB = Get_Encoder_countB;
-    int32_t deltaA = nowA - last_countA;
-    int32_t deltaB = nowB - last_countB;
-    last_countA = nowA;
-    last_countB = nowB;
-    float raw_speedA = ((float)deltaA / ENCODER_RESOLUTION) * (PI * 0.065f) / 0.01f;
-    float raw_speedB = ((float)deltaB / ENCODER_RESOLUTION) * (PI * 0.065f) / 0.01f;
-    // ¾²Ì¬±äÁ¿±£´æÉÏÒ»´ÎµÄËÙ¶È
-    static float last_speedA = 0;
-    static float last_speedB = 0;
-    speedA = filter_alpha * raw_speedA + (1 - filter_alpha) * last_speedA;
-    speedB = filter_alpha * raw_speedB + (1 - filter_alpha) * last_speedB;
-    // ¸üÐÂ¾ÉÖµ
-    last_speedA = speedA;
-    last_speedB = speedB;
+	.ki = 7.7,
+	.kp = 0.0
+};
+
+SPEED_PID_Struct right_speed_pid = 
+{
+	.ki = 7.5,
+	.kp = 0.0
+};
+
+void GetSpeed(float filter_alpha)
+{
+    static int32_t last_left_count = 0;
+    static int32_t last_right_count = 0;
+    int32_t left_count = encoder_left_count;
+    int32_t right_count = encoder_right_count;
+    int32_t deltaA = left_count - last_left_count;
+    int32_t deltaB = right_count - last_right_count;
+    last_left_count = left_count;
+    last_right_count = right_count;
+    float raw_left_count = ((float)deltaA / ENCODER_RESOLUTION) * (PI * 0.065f) / 0.01f;
+    float raw_right_speed = ((float)deltaB / ENCODER_RESOLUTION) * (PI * 0.065f) / 0.01f;
+    static float last_left_speed = 0;
+    static float last_right_speed = 0;
+    left_speed = filter_alpha * raw_left_count + (1 - filter_alpha) * last_left_speed;
+    right_speed = filter_alpha * raw_right_speed + (1 - filter_alpha) * last_right_speed;
+    last_left_speed = left_speed;
+    last_right_speed = right_speed;
 }
 
-/***************************************************************************
-º¯Êý¹¦ÄÜ£ºµç»úµÄPID±Õ»·¿ØÖÆ
-Èë¿Ú²ÎÊý£º×óÓÒµç»úµÄ±àÂëÆ÷Öµ
-·µ»ØÖµ  £ºµç»úµÄPWM
-***************************************************************************/
-
-int Velocity_A(int TargetVelocity, int CurrentVelocity)
+int LeftSpeedPidCtrl(int target, int current)
 {  
-    float Bias;
-    static float ControlVelocityA = 0.0f, Last_biasA = 0.0f;
-    Bias = (float)(TargetVelocity - CurrentVelocity); 
-    ControlVelocityA += VelcityA_Ki * (Bias - Last_biasA) + VelcityA_Kp * Bias;
-    Last_biasA = Bias;
-    if(ControlVelocityA >= PWM_Limit) ControlVelocityA = PWM_Limit;
-    else if(ControlVelocityA <= -PWM_Limit) ControlVelocityA = -PWM_Limit;
-    return (int)ControlVelocityA;
+    static float left_pwm = 0.0f, last_offset = 0.0f;
+    float offset = (float)(target - current); 
+    left_pwm += left_speed_pid.ki * (offset - last_offset) + left_speed_pid.kp * offset;
+    last_offset = offset;
+    if(left_pwm >= MaxPWM) left_pwm = MaxPWM;
+    else if(left_pwm <= -MaxPWM) left_pwm = -MaxPWM;
+    return (int)left_pwm;
 }
 
-/***************************************************************************
-º¯Êý¹¦ÄÜ£ºµç»úµÄPID±Õ»·¿ØÖÆ
-Èë¿Ú²ÎÊý£º×óÓÒµç»úµÄ±àÂëÆ÷Öµ
-·µ»ØÖµ  £ºµç»úµÄPWM
-***************************************************************************/
-
-int Velocity_B(int TargetVelocity, int CurrentVelocity)
+int RightSpeedPidCtrl(int target, int current)
 {  
-    float Bias;
-    static float ControlVelocityB = 0.0f, Last_biasB = 0.0f;
-    Bias = (float)(TargetVelocity - CurrentVelocity); 
-    ControlVelocityB += VelcityB_Ki * (Bias - Last_biasB) + VelcityB_Kp * Bias;
-    Last_biasB = Bias;
-    // ÏÞ·ù
-    if(ControlVelocityB >= PWM_Limit) ControlVelocityB = PWM_Limit;
-    else if(ControlVelocityB <= -PWM_Limit) ControlVelocityB = -PWM_Limit;
-    return (int)ControlVelocityB;
+    static float right_pwm = 0.0f, last_offset = 0.0f;
+    float offset = (float)(target - current); 
+    right_pwm += right_speed_pid.ki * (offset - last_offset) + right_speed_pid.kp * offset;
+    last_offset = offset;
+    if(right_pwm >= MaxPWM) right_pwm = MaxPWM;
+    else if(right_pwm <= -MaxPWM) right_pwm = -MaxPWM;
+    return (int)right_pwm;
 }
 
-/***  ËÙ¶È»·×ª90¶È  ***/
-void turn_90_control(int speed_tar, int offset)
+/***  è½¬è§’çŽ¯  ***/
+void turn_90_control(int tar, int offset)
 {
-	float PWMA = Velocity_A(speed_tar, speedA);
-	float PWMB = Velocity_B(speed_tar, speedB);
-	if(PWMA > 0) motor_left_dir = 1; 	else motor_left_dir = 0;
-	if(PWMB > 0) motor_right_dir = 1;	else motor_right_dir = 0;
-	Motor_left_Control(0);
-	Motor_right_Control(offset + fabs(PWMB));
+	float left_pwm = LeftSpeedPidCtrl(tar, left_speed);
+	float right_pwm = RightSpeedPidCtrl(tar, right_speed);
+	if(left_pwm > 0) motor_left_dir = 1; 	else motor_left_dir = 0;
+	if(right_pwm > 0) motor_right_dir = 1;	else motor_right_dir = 0;
+	Motor_LeftCtrl(0);
+	Motor_RightCtrl(offset + fabs(right_pwm));
 }
 
-/***  ´®¼¶´¦ÀíÓÃµÄËÙ¶È»·  ***/
-void speed_pid_control(int speed_tar, int base)
+/***  é€Ÿåº¦çŽ¯  ***/
+void SpeedPidCtrl(int tar, int base)
 {
-	if (abs(speed_tar) < 5) speed_tar = 0;
-	float PWMA = base - Velocity_A(speed_tar, speedA);
-	float PWMB = base + Velocity_B(speed_tar, speedB);
-	if(PWMA >= 0) motor_left_dir = 1; 	else motor_left_dir = 0;
-	if(PWMB >= 0) motor_right_dir = 1;	else motor_right_dir = 0;
-	Motor_left_Control(fabs(PWMA));
-	Motor_right_Control(fabs(PWMB));
+	if (abs(tar) < 5) tar = 0;
+	float left_pwm = base - LeftSpeedPidCtrl(tar, left_speed);
+	float right_pwm = base + RightSpeedPidCtrl(tar, right_speed);
+	if(left_pwm >= 0) motor_left_dir = 1; 	else motor_left_dir = 0;
+	if(right_pwm >= 0) motor_right_dir = 1;	else motor_right_dir = 0;
+	Motor_LeftCtrl(fabs(left_pwm));
+	Motor_RightCtrl(fabs(right_pwm));
 }

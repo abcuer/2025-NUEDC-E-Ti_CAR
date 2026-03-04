@@ -1,16 +1,16 @@
 #include "encoder.h"
 
-int Get_Encoder_countA = 0;
-int Get_Encoder_countB = 0;
+int encoder_left_count = 0;
+int encoder_right_count = 0;
 
 /*
-		E1A E1B: Get_Encoder_countA
+		E1A E1B: encoder_left_count
 		Pin: A09 A08
-		E2A E2B: Get_Encoder_countB  
+		E2A E2B: encoder_right_count  
 		Pin: B07 B08
 */
 
-void encoder_Init(void)
+void EncoderInit(void)
 {
 	NVIC_ClearPendingIRQ(Encoder_left_INT_IRQN);
 	NVIC_EnableIRQ(Encoder_left_INT_IRQN);
@@ -34,11 +34,11 @@ void GROUP1_IRQHandler(void)
 	{
 		if (!DL_GPIO_readPins(Encoder_left_PORT, Encoder_left_E1B_PIN))
 		{
-				Get_Encoder_countA--;
+				encoder_left_count--;
 		}
 		else
 		{
-				Get_Encoder_countA++;
+				encoder_left_count++;
 		}
 		DL_GPIO_clearInterruptStatus(Encoder_left_PORT, Encoder_left_E1A_PIN);
 	}
@@ -47,11 +47,11 @@ void GROUP1_IRQHandler(void)
 	{
 		if (!DL_GPIO_readPins(Encoder_left_PORT, Encoder_left_E1A_PIN))
 		{
-				Get_Encoder_countA++;
+				encoder_left_count++;
 		}
 		else
 		{
-				Get_Encoder_countA--;
+				encoder_left_count--;
 		}
 		DL_GPIO_clearInterruptStatus(Encoder_left_PORT,Encoder_left_E1B_PIN);
 	}
@@ -61,11 +61,11 @@ void GROUP1_IRQHandler(void)
 	{
 		if (!DL_GPIO_readPins(Encoder_right_PORT, Encoder_right_E2B_PIN))
 		{
-				Get_Encoder_countB--;
+				encoder_right_count--;
 		}
 		else
 		{
-				Get_Encoder_countB++;
+				encoder_right_count++;
 		}
 		DL_GPIO_clearInterruptStatus(Encoder_right_PORT, Encoder_right_E2A_PIN);
 	}
@@ -73,11 +73,11 @@ void GROUP1_IRQHandler(void)
 	{
 		if (!DL_GPIO_readPins(Encoder_right_PORT, Encoder_right_E2A_PIN))
 		{
-				Get_Encoder_countB++;
+				encoder_right_count++;
 		}
 		else
 		{
-				Get_Encoder_countB--;
+				encoder_right_count--;
 		}
 		DL_GPIO_clearInterruptStatus(Encoder_right_PORT, Encoder_right_E2B_PIN);
 	}

@@ -2,16 +2,15 @@
 #define _gray_h
 #include "headfile.h"
 
-void Gray_Read(void);
-void Get_Light_TTL(void);
+typedef struct{
+	uint8_t left[3];
+	uint8_t M;
+	uint8_t right[3];
+} GRAY_Struct;
 
-extern int8_t L3;
-extern int8_t L2;
-extern int8_t L1;
-extern int8_t M;
-extern int8_t R1;
-extern int8_t R2;
-extern int8_t R3;
+void Gray_Update(void);
+
+extern GRAY_Struct gray;
 
 
 #endif

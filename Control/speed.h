@@ -1,12 +1,21 @@
-#ifndef _speed_h
-#define _speed_h
+#ifndef __SPEED_H
+#define __SPEED_H
 
-void speed_cal(float filter_alpha);
-int Velocity_A(int TargetVelocity, int CurrentVelocity);
-int Velocity_B(int TargetVelocity, int CurrentVelocity);
-/***  串级处理用的速度环  ***/
-void speed_pid_control(int speed_tar, int base);
- /***  速度环转向90度  ***/
-void turn_90_control(int speed_tar, int offset);
+#define MaxPWM 1220
+
+typedef struct{
+	float kp;
+	float ki;
+} SPEED_PID_Struct;
+
+void GetSpeed(float filter_alpha);
+int LeftSpeedPidCtrl(int target, int current);
+int RightSpeedPidCtrl(int target, int current);
+
+void SpeedPidCtrl(int tar, int base);
+void turn_90_control(int tar, int offset);
+
+extern float left_speed;
+extern float right_speed;
 
 #endif

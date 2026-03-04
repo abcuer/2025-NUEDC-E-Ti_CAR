@@ -3,6 +3,9 @@
 
 #include "headfile.h"
 
-void encoder_Init(void);
+void EncoderInit(void);
+
+extern int encoder_left_count;
+extern int encoder_right_count;
 
 #endif
