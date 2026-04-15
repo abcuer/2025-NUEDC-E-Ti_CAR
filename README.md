@@ -1,11 +1,8 @@
 # 简易自行瞄准装置---25年电赛E题
 
-[视频演示](https://www.bilibili.com/video/BV1xcSSBzECP)
-[备赛过程](https://www.bilibili.com/video/BV1tDbWzqE1a)
+基于 MSPM0G3507 构建自主循迹与视觉目标锁定系统，实现底盘运动控制、里程计反馈和二维云台打点。
 
-## 战车靓照
-![](./src/2.jpg)
-![](./src/1.jpg)
+## [视频演示](https://www.bilibili.com/video/BV1xcSSBzECP) | [备赛过程](https://www.bilibili.com/video/BV1tDbWzqE1a)
 
 ## 运行环境
 -  配置 keil + sysconfig 环境
@@ -29,3 +26,6 @@ MCU负责小车端，Linux负责串口控制云台、视觉处理
 
 ### 附加题思路同上
 
+## 战车靓照
+![](./src/2.jpg)
+![](./src/1.jpg)
