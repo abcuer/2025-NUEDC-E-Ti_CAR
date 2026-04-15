@@ -1,5 +1,8 @@
 # 简易自行瞄准装置---25年电赛E题
 
+[视频演示](https://www.bilibili.com/video/BV1xcSSBzECP)
+[备赛过程](https://www.bilibili.com/video/BV1tDbWzqE1a)
+
 ## 战车靓照
 ![](./src/2.jpg)
 ![](./src/1.jpg)
